@@ -63,9 +63,10 @@ body{
 
 /* Second bar */
 .secondbar-content{
-  float: left;
+  /*float: left;*/
   width: 25%;
   padding: 10px;
+  display: inline-block;
 }
 .firstcolumnempty{
   float: left;
@@ -107,6 +108,7 @@ body{
     border-radius: 5px 0 0 5px;
     outline: none;
     color: #2c0056;
+    display: inline-block;
   }
   
   .searchterm:focus{
@@ -123,6 +125,7 @@ body{
     border-radius: 0 5px 5px 0;
     cursor: pointer;
     font-size: 20px;
+    display: inline-block;
   }
 
   .secondbar:after{

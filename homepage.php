@@ -111,7 +111,7 @@
 
                             </ul>
 
-                    </div>
+                    
                     <div class = "scndbar1">
                         <div class = "search-bar">
                             <input type = "text" class = "searchterm" placeholder = "Search...">
@@ -119,6 +119,8 @@
                                 <i class = "isearch"></i>
                             </button>
                         </div>
+
+</div>
                     </div>
                 </div>
             
@@ -301,6 +303,18 @@
     </div>
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

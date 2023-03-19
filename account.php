@@ -103,14 +103,14 @@
             </ul>
 
             </div>
-            <!--
+            
             <div class = "search-bar">
                 <input type = "text" class = "searchterm" placeholder = "Search...">
                 <button type = "submit" class = "searchbutton">
                     <i class = "isearch"></i>
                 </button>
             </div>
-            -->
+            
             <div class = "thirdcolumnempty">
             </div>
 

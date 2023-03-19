@@ -86,6 +86,17 @@ width: 20%;}
   clear: both;
 }
 
+.secondrow{
+    float:left;
+    width: 30%;
+    padding: 10px;
+}
+.accountgames:after{
+    content: "";
+    display: table;
+    clear: both;
+    justify-content: center;
+}
 
 
 
@@ -93,6 +104,7 @@ width: 20%;}
     float: left;
     width: 30%;
     padding: 10px;
+    justify-content: center;
 }
 
 .gamephoto{

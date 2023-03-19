@@ -11,11 +11,11 @@ img {vertical-align: middle;}
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 50%;
+  max-width: 500px;
   
   position: relative;
   margin: auto;
-  text-align: center;
+  
 }
 
 /* Caption text */
@@ -85,21 +85,13 @@ img {vertical-align: middle;}
   padding: 10px;
 
 }
-.maincolumns:after{
-  content: "";
-  display: table;
-  clear: both;
-}
+
 .firstcolumn{
   float: left;
   width: 33.33%;
   padding: 10px;
 }
-.maincolumns:after{
-  content: "";
-  display: table;
-  clear: both;
-}
+
 .secondcolumn{
   float: left;
   width: 33.33%;
@@ -112,13 +104,12 @@ img {vertical-align: middle;}
 }
 
 
-
-.linkscolumn:after{
+.recommandations{
   float: left;
   width: 33.33%;
   padding: 10px;
 }
-.firstcolumn{
+.linkscolumn:after{
   content: "";
   display: table;
   clear: both;
