@@ -3,143 +3,204 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="styleforhomenavbar.css">
-    <link rel="stylesheet" type="text/css" href="styleforaccount.css">
+    <link rel="stylesheet" type="text/css" href="styleforcategories.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
-
+    <style>
     
-<style>
-  .sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #c9a6d6;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
+    .pill-nav a {
+      display: inline-block;
+      color: rgb(61, 0, 174);
+      text-align: center;
+      padding: 30px;
+      text-decoration: none;
+      font-size: 30px;
+      border-radius: 10px;
+    }
+    
+    .pill-nav a:hover {
+      background-color: #c96cdb;
+      color: black;
+    }
+    
+    .pill-nav a.active {
+      background-color: rgb(131, 30, 255);
+      color: white;
+    }
+  
+  
+  
+  
+    .sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #c9a6d6;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #a237d8;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidebar a:hover {
+    color: #e5b0ff;
+  }
+  
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  .openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #6527ac;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+  }
+  
+  .openbtn:hover {
+    background-color: #3f0f76;
+  }
+  
+  #main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+  
+  
+  
+  .form-container {
+    background: #aed0ff;
+    border: #9dc6ff 1px solid;
+    padding: 20px;
+    border-radius: 2px;
+    max-width: 40%;
+  }
+  
+  .input-row {
+    margin-bottom: 20px;
+  }
+  
+  .input-row label {
+    color: #25022b;
+  }
+  
+  .input-field {
+    width: 100%;
+    border-radius: 2px;
+    padding: 10px;
+    border: #e0dfdf 1px solid;
+    box-sizing: border-box;
+    margin-top: 2px;
+  }
+  
+  .span-field {
+    font: Arial;
+    font-size: small;
+    text-decoration: none;
+  }
+  
+  .btn-submit {
+    padding: 10px 60px;
+    background: #b46ebc;
+    border: #70397c 1px solid;
+    color: #ffffff;
+    font-size: 0.9em;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  .errorMessage {
+    background-color: #e66262;
+    border: #AA4502 1px solid;
+    padding: 5px 10px;
+    color: #FFFFFF;
+    border-radius: 3px;
+  }
+  
+  .successMessage {
+    background-color: #9fd2a1;
+    border: #91bf93 1px solid;
+    padding: 5px 10px;
+    color: #3d503d;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9em;
+  }
+  
+  .info {
+    font-size: .8em;
+    color: #e66262;
+    letter-spacing: 2px;
+    padding-left: 5px;
+  }
+  
+  
 
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #a237d8;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  color: #e5b0ff;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #6527ac;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #3f0f76;
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
 
 
 
-.form-container {
-  background: #aed0ff;
-  border: #9dc6ff 1px solid;
-  padding: 20px;
-  border-radius: 2px;
-  max-width: 40%;
-}
+  .product-container {
+            width: 50%;
+            margin: 10px auto;
+            background-color: #e5d9ff; /* Change the background color as needed */
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden; /* Clear floats */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(212, 192, 252, 0.6);
+            display: flex;
+            justify-content: space-between; /* Distribute content evenly */
+            align-items: center;
+        }
 
-.input-row {
-  margin-bottom: 20px;
-}
+        .image-container {
+            width: 45%;
+            float: left;
+            box-sizing: border-box;
+            margin-right: 5%;
+        }
 
-.input-row label {
-  color: #25022b;
-}
+        .text-container {
+            width: 40%;
+            box-sizing: border-box;
+            text-align: center; /* Center text horizontally */
+            margin-left: auto;
+        }
 
-.input-field {
-  width: 100%;
-  border-radius: 2px;
-  padding: 10px;
-  border: #e0dfdf 1px solid;
-  box-sizing: border-box;
-  margin-top: 2px;
-}
+        /* Clear floats within the product container */
+        .product-container::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
 
-.span-field {
-  font: Arial;
-  font-size: small;
-  text-decoration: none;
-}
-
-.btn-submit {
-  padding: 10px 60px;
-  background: #b46ebc;
-  border: #70397c 1px solid;
-  color: #ffffff;
-  font-size: 0.9em;
-  border-radius: 2px;
-  cursor: pointer;
-}
-
-.errorMessage {
-  background-color: #e66262;
-  border: #AA4502 1px solid;
-  padding: 5px 10px;
-  color: #FFFFFF;
-  border-radius: 3px;
-}
-
-.successMessage {
-  background-color: #9fd2a1;
-  border: #91bf93 1px solid;
-  padding: 5px 10px;
-  color: #3d503d;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 0.9em;
-}
-
-.info {
-  font-size: .8em;
-  color: #e66262;
-  letter-spacing: 2px;
-  padding-left: 5px;
-}
-
-
-</style>
-</head>
+    </head>
 
 
 <body>
@@ -157,6 +218,7 @@
                         </a>
                         <div class = "dropdown-content">
                             <a href = "categories.php" class = "buttosnav">CATEGORIES</a>
+                            <a href = "paypage.php" class = "buttosnav">CART</a>
                             
                         </div>
                     </div>
@@ -214,36 +276,9 @@
             <div class = "secondbar">
                 <div class = "firstcolumnempty">
                     
-                </div>
 
-                <div class = "secondbar-content">
-
-                    <div class = "scndbar1">
-                            <ul>
-
-                            <li><a href = "news.php" class = "secondbarpage">News</a></li>
-                          
-                            
-                            <li><a href = "categories.php" class = "secondbarpage">Categories</a></i>
-                        
-                        
-        
-
-                            
-                            </ul><br>
-                            
-
-                    </div>
-                    
-                   
-                </div>
-</div>
-</div>
-    
-
-
-
-<div id="mySidebar" class="sidebar">
+                
+                <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <a href="reccomandations.php">Reccomandations</a>
   <a href="account.php">Account</a>
@@ -268,41 +303,112 @@ function closeNav() {
 }
 </script>
 
-    </header>
-    <br><br>
 
 
+                </div>
 
+                <div class = "secondbar-content">
 
+                    <div class = "scndbar1">
+                            <ul>
 
- <center>
-                     
-   <a href = "accountlogin.php"><img src="gifs/login.gif " style = "width:25%"></a>
-                              
-  <a href = "accountsignin.php"><img src="gifs/signin.gif " style = "width:25%"></a>
-                              
-</center>
+                            <li><a href = "news.php" class = "secondbarpage">News</a></li>
+                          
+                            
+                            <li><a href = "categories.php" class = "secondbarpage">Categories</a></i>
+                        
+                        
+        
+
+                            
+                            </ul><br>
+                            
+
+                    </div>
+                    
                    
-<br><br>
+                </div>
+                <div class = "thirdcolumnempty">
+                        <img src="gifs/gif11.gif" style="width:15%">
+                    </div>
+</div>
+</div>
+    
 
 
-    <div class = "gif">
-        <img src = "gifs/nyan-cat.gif" width= "50%">
-
-    </div>
+    </header>
+    <br><br><br>
 
 
+    <center>
+<?php
+// Include your database connection file
+include("connectiondb.php");
+
+// Check if category_id is provided in the URL
+if (isset($_GET['category_id'])) {
+    $category_id = $_GET['category_id'];
+
+    
+    $genre_query = "SELECT name_genre FROM categories WHERE id_genre = $category_id";
+    $genre_result = $conn->query($genre_query);
+
+    if ($genre_result->num_rows > 0) {
+        $genre_row = $genre_result->fetch_assoc();
+        $genre = $genre_row['name_genre'];
+
+        // Output the genre name as the title
+        echo '<h2>' . $genre . '</h2>';
 
 
+      
+
+    // Fetch games for the selected category
+    $sql = "SELECT * FROM games WHERE id_genre = $category_id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Output games for the selected category
+        while ($row = $result->fetch_assoc()) {
+            $game_id = $row['id_game'];
+            $game_name = $row['name_game'];
+            $game_image = $row['image'];
+           
+
+           
 
 
-    <!-- <div class = "adminbutton">
-            <a href = "admin/adminpage.php">
-                    <button class = "button2" style="vertical-align:middle"><span>ADMIN LOG IN</span></button>
-            </a>
-    </div> -->
-          
-    <!--Contact Form-->
+// Output the product container with image and text
+echo '<div class="product-container">';
+echo '<div class="image-container">';
+
+
+echo "<img src='data:image/jpeg;base64," . base64_encode($game_image) . "' alt='$game_name' width='100%'><br>";
+echo '</div>';
+
+echo '<div class="text-container">';
+echo "<a href='game_page.php?game_id=$game_id'>$game_name</a><br><br>";
+// Additional text or details can be added here
+echo '</div>';
+
+echo '</div>'; // Close product container
+    
+        }
+    } else {
+        echo 'No games found for the selected category.';
+    }
+} else {
+    echo 'Invalid category selection.';
+}
+}
+// Close the database connection
+$conn->close();
+?>
+
+</center>
+
+<br><br><br><br>
+<!--Contact Form-->
 <center>
 
 <div>
@@ -400,5 +506,6 @@ function closeNav() {
     <img src= "gifs/grass4.gif" width = "24.25%" >
     <img src= "gifs/grass4.gif" width = "24.25%" >
     <img src= "gifs/grass4.gif" width = "24.25%" >
+
 </body>
 </html>

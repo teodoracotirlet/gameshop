@@ -49,7 +49,7 @@
                         <button class = "buttonsnav" >COMMUNITY</button>
                         </a>
                         <div class = "dropdown-content">
-                            <a href = "community.php" class = "buttosnav">NEWS</a>
+                            <a href = "news.php" class = "buttosnav">NEWS</a>
                             
                         </div>
                     </div>
@@ -102,97 +102,39 @@
                     
                    
                 </div>
-            
-            
-        
-                    <div class = "thirdcolumnempty">
-                        <img src="gifs/gif4.gif" style="width:25%">
-                    </div>
-
-                        
-                
-           
-            </div>
-        </div>
+</div>
+</div>
     
+
 
 
     </header>
     <br><br><br><br>
 
-
-
-    <div class = "emptycolumn">
-        
+    <div class = "mainpart2">
     </div>
 
-    <!-- <div class = "mainpart"> -->
-        
-                        
+    <div class = "mainpart2">
+            
+    <h1>ROLE-PLAYING</h1>
+            <!-- <div class = "title"> -->
+                <h3>Elden Ring</h3>
+                <a href = "store-game-page.php"><img src = "games/eldenring.jpeg" width= "50%"></a>
+            <!-- </div> -->
+            
+</div><br>
 
-    <div class = "emptycolumn">
-    </div>
-
-    <div class="slideshow-container">
-
-<div class="mySlides fade">
-  <div class="numbertext"></div>
-  <img src="slideshow1/godofwar.jpeg" style="width:50%">
   
-</div>
-
-<div class="mySlides fade">
-  <div class="numbertext"></div>
-  <img src="slideshow1/stardewvalley2.jpg" style="width:50%">
-  
-</div>
-
-<div class="mySlides fade">
-  <div class="numbertext"></div>
-  <img src="slideshow1/genshimimpact.jpeg" style="width:50%">
-  
-</div>
-
-</div>
 <br>
-
-<div style="text-align:center">
-  <span class="dot"></span> 
-  <span class="dot"></span> 
-  <span class="dot"></span> 
-</div>
-
-<script>
-let slideIndex = 0;
-showSlides();
-
-function showSlides() {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 5000); // Change image every 5 seconds
-}
-</script>
-
-
-
-
-<br><br><br>
-
-   
-
-           
+ <div class = "mainpart2">
+        </div>
+<div class = "mainpart2">
        
    
+            
+    </div>
+
+    
+
 </body>
 </html>

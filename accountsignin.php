@@ -3,47 +3,25 @@
     $message="";
     if(count($_POST)>0) {
         $con = mysqli_connect('localhost','root','','gamestore') or die('Unable To connect');
-        $result = mysqli_query($con,"SELECT * FROM accounts WHERE profile_name='" . $_POST["profile_name"] . "' and password='" . $_POST["password"] . "'");
+        $result = mysqli_query($con,"SELECT * FROM accounts WHERE id_account='" . $_POST["id_account"] . "'and first_name='" . $_POST["first_name"] . "' and last_name= '". $_POST["last_name"]."'and profile_name='" . $_POST["profile_name"] . "' and age='" . $_POST["age"] . "' and email='" . $_POST["email"] . "' and address='" . $_POST["address"] . "'and city='" . $_POST["city"] . "'and state='" . $_POST["state"] . "'and password='" . $_POST["password"] . "'");
         $row  = mysqli_fetch_array($result);
         if(is_array($row)) {
-        
+        $_SESSION["id_account"] = $row['id_account'];
+        $_SESSION["first_name"] = $row['first_name'];
+        $_SESSION["last_name"] = $row['last_name'];
         $_SESSION["profile_name"] = $row['profile_name'];
-        
+        $_SESSION["age"] = $row['age'];
+        $_SESSION["email"] = $row['email'];
+        $_SESSION["address"] = $row['address'];
+        $_SESSION["city"] = $row['city'];
+        $_SESSION["state"] = $row['state'];
         $_SESSION["password"] = $row['password'];
-
-        
-
-
- // Set user information in $_SESSION["user_info"]
-//  $_SESSION["user_info"] = array(
-//   "first_name" => $row['first_name'],
-//   "last_name" => $row['last_name'],
-//   "email" => $row['email'],
-//   "address" => $row['address'],
-//   "city" => $row['city'],
-//   // Add other relevant user information
-// );
-
-
-//   header("Location: paypage.php");
-//   exit();
-
-
-
-        if ($_SESSION["profile_name"] == "admin") {
-          // Redirect to the admin management page
-          header("Location: admin/adminpage.php");
-          exit();}
-
-        $message = "You are logged in now!";
         } else {
          $message = "Invalid Username or Password!";
         }
     }
     if(isset($_SESSION["id_account"])) {
-
-      
-      //  header("Location:connectiondb.php");
+    header("Location:connectiondb.php");
     }
 ?>
 
@@ -56,7 +34,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
 
     <style>
 
@@ -98,7 +75,6 @@ input[type=submit]:hover {
 input[type=reset]:hover {
   background-color: #991baa;
 }
-
 
 
 .sidebar {
@@ -160,26 +136,7 @@ input[type=reset]:hover {
 }
 
 
-@media screen and (max-width: 768px) {
-    .account-link {
-        margin-right: 0; /* Adjust for smaller screens */
-    }
 
-    .account-link a {
-        padding: 10px; /* Adjust padding for smaller screens */
-    }
-}
-
-.account-link {
-  float: right;
-    margin-right: 20px;
-}
-
-.account-link a {
-    color: #d98648;
-    text-decoration: none;
-    padding: 20px;
-}
     </style>
 </head>
 
@@ -199,7 +156,6 @@ input[type=reset]:hover {
                         </a>
                         <div class = "dropdown-content">
                             <a href = "categories.php" class = "buttosnav">CATEGORIES</a>
-                         
                             <a href = "paypage.php" class = "buttosnav">CART</a>
                             
                         </div>
@@ -249,9 +205,6 @@ input[type=reset]:hover {
                 
             </div>
 
-
-            
-
         </div>
 
 
@@ -261,19 +214,14 @@ input[type=reset]:hover {
             <div class = "secondbar">
                 <div class = "firstcolumnempty">
                     
+
                 
-<div id="mySidebar" class="sidebar">
+                <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <a href="reccomandations.php">Reccomandations</a>
   <a href="account.php">Account</a>
   <a href="store.php">Store</a>
   <a href="news.php">News</a>
-
-
-  
-
-
-
 </div>
 
 <div id="main">
@@ -292,6 +240,7 @@ function closeNav() {
   document.getElementById("main").style.marginLeft= "0";
 }
 </script>
+
                 </div>
 
                 <div class = "secondbar-content">
@@ -323,51 +272,32 @@ function closeNav() {
 
     </header>
     <br><br>
+    
+<div><div></div>
+ <center>   <h2 style="color:#991baa;">Enter your informations:</h1>
+
+<form action="accountsignin-redirect.php" method="POST" >
+    First Name: <input type="text" name="first_name" required placeholder="Your first name.."><br> 
+   Last Name: <input type="text" name="last_name" required placeholder="Your last name.."><br> 
+   Profile Name: <input type="text" name="profile_name" required placeholder="Your profile name.."><br> 
+   Age: <input type="text" name="age" required placeholder="Your age.."><br>
    
-<div class="account-link">
-        <?php
-        if (isset($_SESSION["profile_name"])) {
-            echo '<a href="userprofile.php">' . $_SESSION["profile_name"] . '</a>';
-
-            echo '<form action="logout.php" method="post" style="display:inline-block; margin-left: 20px; ">
-            <input type="submit" value="Logout" style="width: 90px; padding: 15px; font-size: 16px;">
-            </form>';
-
-            echo '<form action="updateprofile_user.php" method="post" style="display:inline-block; margin-left: 20px; ">
-                  <input type="submit" value="Update Profile" style="width: 150px; padding: 15px; font-size: 16px;" >
-                </form>';
-        
-        }
-        ?>
-    </div>
-
-<br><br><br>
-  <center>  
-   <form name="frmUser" method="post" action="" >
-    <div class="message"><?php if($message!="") { echo $message; } ?></div>
-    <h2 style="color:#991baa;">Enter Login Details</h3>
-    Username:
-    <input type="text" name="profile_name" placeholder="Your username..">
-    <br>
-    Password:
-    <!-- <input type="password" name="password"> -->
-    <input type="password" name="password"  placeholder="Your password..">
-    <br><br>
-    <input type="submit" name="submit" value="Submit">
-    <input type="reset">
-    </form>
-
-    <div>
-    <form action="logout.php" method="post">
-        <input type="submit" value="Logout">
-    </form>
-</div></div>
+   Email: <input type="text" name="email" required placeholder="Your email.."><br>
+   Address: <input type="text" name="address" required placeholder="Your address.."><br>
+   City: <input type="text" name="city" required placeholder="Your city.."><br>
+   State: <input type="text" name="state" required placeholder="Your state.."><br>
+   Password: <input type="text" name="password" required placeholder="Your password.."><br>
+   
+   <input type="reset" value="Reset">
+   <input type="submit" value="Submit">
+</form>
 </center>
 
+<br><br>
+<center><img src="gifs/gif9.gif" style="width:25%"></center>
 
 
-<br>
-  <center>  <img src="gifs/gif8.gif" style="width:25%"></center>
+
 
 <img src= "gifs/grass4.gif" width = "24.25%" >
     <img src= "gifs/grass4.gif" width = "24.25%" >

@@ -1,22 +1,124 @@
 body{
     margin: 0;
     font-family: 'Poppins';font-size: 22px;
+   
+            /* padding: 0; */
+            /* overflow: hidden; */
+   
+}
+/* * {
+  box-sizing: border-box;
+} */
+
+/* .cell{
+  display:table-cell;
+  border: 1px solid #ffffff;
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
 }
 
-/*Slideshow*/
-* {box-sizing: border-box;}
+.row{
+  display:table-row;
+}
+.games{
+  display:table-row-group;
+} */
 
-.mySlides {display: none;}
-img {vertical-align: middle;}
 
-/* Slideshow container */
+.mySlides {display:none}
+.w3-left, .w3-right, .w3-badge {cursor:pointer}
+.w3-badge {height:13px;width:13px;padding:0}
+
+
+.mainrow:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.emptycolumn3{
+  float: right;
+  width: 40%;
+  padding: 10px;
+}
+
+.container2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}  
+
+
+
+.column{
+  display:table-row;
+  float:left;
+  width: 10%;
+  padding: 10px;
+  /* align-items: center; */
+}
+.column1{
+  width: 20%;
+  padding: 10px;
+  /* display: inline-block; */
+}
+.linkscolumn{
+  display:table-cell;
+  border: 1px solid #ffffff;
+  padding: 8px;
+  line-height: 1.42857143;
+  /* vertical-align: top;
+  float:left; */
+}
+
+.maincolumns{
+  display:table-row-group;
+}
+.emptycolumn{
+  /* width:25%;
+  float:left;
+  height:280px; */
+
+  display:table-cell;
+  border: 1px solid #ffffff;
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+}
+
+.emptycolumn2{
+  
+  float:right;
+  height:280px;
+  display:table-cell;
+}
+
+.links{
+  position: absolute;
+  /* top:50%;
+  transform: translate(0, -50%); */
+  color: #780091;
+  font-size: 5px;
+
+}
+.h4{
+  color: #780091;
+}
+
+
 .slideshow-container {
-  max-width: 500px;
-  
-  position: relative;
-  margin: auto;
-  
+  /* max-width: 1000px;
+ float:left;
+  margin: auto; */
+  display:table-cell;
+  border: 1px solid #ffffff;
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  text-align: center;
 }
+
 
 /* Caption text */
 .text {
@@ -43,14 +145,14 @@ img {vertical-align: middle;}
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: #bbb;
+  background-color: #9300b1;
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
 }
 
 .active {
-  background-color: #717171;
+  background-color: #870091;
 }
 
 /* Fading animation */
@@ -65,67 +167,149 @@ img {vertical-align: middle;}
 }
 
 /* On smaller screens, decrease text size */
-@media only screen and (max-width: 200px) {
+@media only screen and (max-width: 300px) {
   .text {font-size: 11px}
 }
 
-
-
-/*Links from the left*/
-
-
-
-
+.hr.line1{
+  border: 20px solid rgb(91, 0, 133);
+  border-radius: 20px;
+}
 
 
 
-.thirdcolumn{
-  float: left;
-  width: 33.33%;
+.mySlides {display:none}
+.w3-left, .w3-right, .w3-badge {cursor:pointer}
+.w3-badge {height:13px;width:13px;padding:0}
+
+/*Contact Form*/
+
+
+.form-container {
+  background: #aed0ff;
+  border: #9dc6ff 1px solid;
+  padding: 20px;
+  border-radius: 2px;
+  max-width: 40%;
+}
+
+.input-row {
+  margin-bottom: 20px;
+}
+
+.input-row label {
+  color: #25022b;
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 2px;
   padding: 10px;
-
+  border: #e0dfdf 1px solid;
+  box-sizing: border-box;
+  margin-top: 2px;
 }
 
-.firstcolumn{
-  float: left;
-  width: 33.33%;
-  padding: 10px;
+.span-field {
+  font: Arial;
+  font-size: small;
+  text-decoration: none;
 }
 
-.secondcolumn{
-  float: left;
-  width: 33.33%;
-  padding: 10px;
-}
-.maincolumns:after{
-  content: "";
-  display: table;
-  clear: both;
-}
-
-
-.recommandations{
-  float: left;
-  width: 33.33%;
-  padding: 10px;
-}
-.linkscolumn:after{
-  content: "";
-  display: table;
-  clear: both;
+.btn-submit {
+  padding: 10px 60px;
+  background: #b46ebc;
+  border: #70397c 1px solid;
+  color: #ffffff;
+  font-size: 0.9em;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
-
-.slideshow-container{
-  float: left;
-  width: 33.33%;
-  padding: 10px;
-}
-.secondcolumn:after{
-  content: "";
-  display: table;
-  clear: both;
+.errorMessage {
+  background-color: #e66262;
+  border: #AA4502 1px solid;
+  padding: 5px 10px;
+  color: #FFFFFF;
+  border-radius: 3px;
 }
 
+.successMessage {
+  background-color: #9fd2a1;
+  border: #91bf93 1px solid;
+  padding: 5px 10px;
+  color: #3d503d;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.info {
+  font-size: .8em;
+  color: #e66262;
+  letter-spacing: 2px;
+  padding-left: 5px;
+}
 
 
+
+/*navbar side*/
+
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #c9a6d6;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #a237d8;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #e5b0ff;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #6527ac;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #3f0f76;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}

@@ -1,7 +1,21 @@
+<?php
+session_start();
+
+// Check if the user is not logged in, redirect to the login page
+if (!isset($_SESSION["profile_name"])) {
+    header("Location: accountlogin.php");
+    exit();
+}
+
+// Fetch user data from the database (adjust this based on your database schema)
+$con = mysqli_connect('localhost', 'root', '', 'gamestore') or die('Unable To connect');
+$result = mysqli_query($con, "SELECT * FROM accounts WHERE profile_name='" . $_SESSION["profile_name"] . "'");
+$row = mysqli_fetch_array($result);
+?>
 
 
-
-<!DOCTYPE html>
+    
+    <!DOCTYPE html>
 
 <html>
 <head>
@@ -10,48 +24,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-
+   
 
 
 <style>
-
-
-.navigationbar{
-    max-width: 1300px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    font-family: 'Poppins';
-    
-}
-
-.buttonsnav{
-    background-color: rgb(253, 253, 253);
-    color: #540a6e;
-    padding: 16px;
-    font-size: 19px;
-    border: none;
-
-}
-
-.buttonsnav:hover{
-    
-    background-color: rgb(249, 214, 255);
-
-}
-
-
-
-
-
-
-
-
-
   .sidebar {
   height: 100%;
   width: 0;
@@ -140,7 +116,7 @@
     margin: auto;
     text-align: center;
     overflow: hidden;
-    padding: 10px; 
+    padding: 10px; /* Add some padding to create space */
 }
 
 #slideshow-container {
@@ -169,7 +145,7 @@
     position: relative;
     display: inline-block;
     transition: color 0.3s;
-    margin: 0 10px; 
+    margin: 0 10px; /* Add margin to create space between arrows and slideshow */
 }
 
 .arrow::before,
@@ -203,15 +179,13 @@
 
 
 
-
-
 @media screen and (max-width: 768px) {
     .account-link {
-        margin-right: 0;
+        margin-right: 0; /* Adjust for smaller screens */
     }
 
     .account-link a {
-        padding: 10px;
+        padding: 10px; /* Adjust padding for smaller screens */
     }
 }
 
@@ -228,50 +202,43 @@
 
 
 
-/* Slideshow */
 
-.slider-container {
-    width: 70%;
-    margin: 0 auto;
-    text-align: center; 
-    position: relative;
-    
-  }
 
-  .slider {
-    width: 100%;
-    height: 500px;
-    position: relative;
-  }
 
-  .slider img {
-    width: 60%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+.profile-container {
+    background-color: #e0f7fa; /* Light blue background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+}
 
-  .navigation-button {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-  }
 
-  .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #6f57de;
-    border-radius: 50%;
+.update-button {
     display: inline-block;
-  }
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50; /* Green button color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
 
-  .active,
-  .dot:hover {
-    background-color: #2202b3;
-  }
+
+
+.update-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.textprofile{
+
+    color: #672ed9;
+}
 </style>
 </head>
 
@@ -357,7 +324,6 @@
   <a href="account.php">Account</a>
   <a href="store.php">Store</a>
   <a href="news.php">News</a>
-
   <br>
 
   <div class="account-link">
@@ -489,221 +455,39 @@ if (isset($_POST['submit'])) {
 
 
     </header>
-    <br><br><br>
+    <br>
 
 
 
 
                   
                    
-
+<center> 
 
 
 <body>
-<!-- Slideshow -->
-
-<center>
-
-<div class="slider-container">
-    <div class="slider">
-        <img src="slideshow1/undertale.jpg" style="width:90%">
-        <img src="slideshow1/godofwar.jpeg" style="width:90%">
-        <img src="slideshow1/genshimimpact.jpeg" style="width:90%">
-        <img src="slideshow1/stardewvalley2.jpg" style="width:90%">
-        
-    </div>
-    <div class="navigation-button">
-        <span class="dot active" onclick="changeSlide(0)"></span>
-        <span class="dot" onclick="changeSlide(1)"></span>
-        <span class="dot" onclick="changeSlide(2)"></span>
-        <span class="dot" onclick="changeSlide(3)"></span>
-    </div>
-</div>
 
 
 
-<script>
-var currentImg = 0;
-    var imgs = document.querySelectorAll('.slider img');
-    let dots = document.querySelectorAll('.dot');
-    var interval = 3000;
-    var timer = setInterval(changeSlide, interval);
+<div class="profile-container">
 
-    function changeSlide(n) {
-        for (var i = 0; i < imgs.length; i++) {
-            imgs[i].style.opacity = 0;
-            dots[i].classList.remove('active');
-        }
-
-        currentImg = (n !== undefined) ? n : (currentImg + 1) % imgs.length;
-
-        imgs[currentImg].style.opacity = 1;
-        dots[currentImg].classList.add('active');
-    }
-
-</script>
-
-</center>
-
-
-
-<!--Slideshow-->
-<!-- <div class="slideshow-wrapper">
-<div id="slideshow-container">
-    <?php
-    include("connectiondb.php"); 
-    $sql = "SELECT * FROM games LIMIT 4";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        $games = $result->fetch_all(MYSQLI_ASSOC);
-
-        foreach ($games as $index => $game) {
-            echo '<div class="slide" id="slide' . $index . '">';
-            echo '<a href="store-game-page.php?id_game=' . $game['id_game'] . '"><img class="slideshow-img" src="data:image/jpeg;base64,' . base64_encode($game['image']) . '" alt="' . $game['name_game'] . '"></a>';
-            echo '</div>';
-        }
-    }
-    ?>
-</div>
-
-<div class="button-container">
-    <span class="arrow" onclick="previousSlide()">&#9664;</span>
-    <span class="arrow" onclick="nextSlide()">&#9654;</span>
-</div>
-</div>
-<script>
-    var currentSlideIndex = 0;
-    var slides = document.getElementsByClassName("slide");
-
-    showSlide(currentSlideIndex);
-
-    function showSlide(index) {
-        if (index < 0) {
-            currentSlideIndex = slides.length - 1;
-        } else if (index >= slides.length) {
-            currentSlideIndex = 0;
-        } else {
-            currentSlideIndex = index;
-        }
-
-        for (var i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-
-        slides[currentSlideIndex].style.display = "block";
-    }
-
-    function nextSlide() {
-        showSlide(currentSlideIndex + 1);
-    }
-
-    function previousSlide() {
-        showSlide(currentSlideIndex - 1);
-    }
-
-    setInterval(nextSlide, 3000); 
-</script> -->
-
-
-
-       </center>  
+<title>User Profile</title>
    
 
-  
-<br><br><br> 
 
+    <h2>Welcome, <?php echo $_SESSION["profile_name"]; ?></h2>
 
-
-
-
-<center>
- <img src= "gifs/descent.gif" width = "30%" ></center>
-
-
-        
-<br><br>
-
-                        
-
-
-<!--Contact Form-->
-
-<center>
-
-<?php
-// Database connection
-
-$servername = "localhost";
-$username = "";
-$password = "";
-$dbname = "gamestore"; 
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $subject = $_POST["subject"];
-    $message = $_POST["message"];
-
-    // Insert data into the database
-    $sql = "INSERT INTO contact (name, email, subject, message) VALUES ('$name', '$email', '$subject', '$message')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "<p class='successMessage'>Form submitted successfully!</p>";
-    } else {
-        echo "<p class='errorMessage'>Error: " . $sql . "<br>" . $conn->error . "</p>";
-    }
-}
-
-$conn->close();
-?>
-
-<div class="form-container">
-    <form method="post" action="">
-        <div class="input-row">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" class="input-field" required>
-        </div>
-
-        <div class="input-row">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" class="input-field" required>
-        </div>
-
-        <div class="input-row">
-            <label for="subject">Subject:</label>
-            <input type="text" id="subject" name="subject" class="input-field" required>
-        </div>
-
-        <div class="input-row">
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" class="input-field" rows="4" required></textarea>
-        </div>
-
-        <input type="submit" value="Submit" class="btn-submit">
-    </form>
+    <!-- Display other user information from the database -->
+    <p class = "textprofile"><strong>Email:</strong> <?php echo $row['email']; ?></p>
+    <p class = "textprofile"><strong>First Name:</strong> <?php echo $row['first_name']; ?></p>
+    <p class = "textprofile"><strong>Last Name:</strong> <?php echo $row['last_name']; ?></p>
+    <p class = "textprofile"><strong>Address:</strong> <?php echo $row['address']; ?></p>
+    <p class = "textprofile"><strong>City:</strong> <?php echo $row['city']; ?></p>
+    <p class = "textprofile"><strong>State:</strong> <?php echo $row['state']; ?></p>
+   
+    <a href="updateprofile_user.php?id_account=<?php echo $row["id_account"]; ?>"  class="update-button">Update Profile</a>
 </div>
-
-  </center>
-
-
-
-
-
-
-
-
- <!-- <div>
-    <a href ="test.php">Test</a></div> -->
-
-
+<br>
     <img src= "gifs/grass4.gif" width = "24.25%" >
     <img src= "gifs/grass4.gif" width = "24.25%" >
     <img src= "gifs/grass4.gif" width = "24.25%" >

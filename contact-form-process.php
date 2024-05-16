@@ -3,7 +3,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="styleforhomenavbar.css">
-    <link rel="stylesheet" type="text/css" href="styleforstore.css">
+    <link rel="stylesheet" type="text/css" href="styleforhome.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
@@ -49,7 +49,7 @@
                         <button class = "buttonsnav" >COMMUNITY</button>
                         </a>
                         <div class = "dropdown-content">
-                            <a href = "community.php" class = "buttosnav">NEWS</a>
+                            <a href = "news.php" class = "buttosnav">NEWS</a>
                             
                         </div>
                     </div>
@@ -91,108 +91,97 @@
                             
                             <li><a href = "categories.php" class = "secondbarpage">Categories</a></i>
                         
-                        
-        
 
                             
-                            </ul><br>
+                            </ul>
                             
 
                     </div>
                     
                    
                 </div>
-            
-            
-        
-                    <div class = "thirdcolumnempty">
-                        <img src="gifs/gif4.gif" style="width:25%">
-                    </div>
-
-                        
-                
-           
-            </div>
-        </div>
+</div>
+</div>
     
 
 
     </header>
     <br><br><br><br>
 
+<?php
 
+if (isset($_POST['Email'])) {
 
-    <div class = "emptycolumn">
-        
-    </div>
+    // EDIT THE 2 LINES BELOW AS REQUIRED
+    $email_to = "you@yourdomain.com";
+    $email_subject = "New form submissions";
 
-    <!-- <div class = "mainpart"> -->
-        
-                        
+    function problem($error)
+    {
+        echo "We are very sorry, but there were error(s) found with the form you submitted. ";
+        echo "These errors appear below.<br><br>";
+        echo $error . "<br><br>";
+        echo "Please go back and fix these errors.<br><br>";
+        die();
+    }
 
-    <div class = "emptycolumn">
-    </div>
+    // validation expected data exists
+    if (
+        !isset($_POST['Name']) ||
+        !isset($_POST['Email']) ||
+        !isset($_POST['Message'])
+    ) {
+        problem('We are sorry, but there appears to be a problem with the form you submitted.');
+    }
 
-    <div class="slideshow-container">
+    $name = $_POST['Name']; // required
+    $email = $_POST['Email']; // required
+    $message = $_POST['Message']; // required
 
-<div class="mySlides fade">
-  <div class="numbertext"></div>
-  <img src="slideshow1/godofwar.jpeg" style="width:50%">
-  
-</div>
+    $error_message = "";
+    $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
 
-<div class="mySlides fade">
-  <div class="numbertext"></div>
-  <img src="slideshow1/stardewvalley2.jpg" style="width:50%">
-  
-</div>
+    if (!preg_match($email_exp, $email)) {
+        $error_message .= 'The Email address you entered does not appear to be valid.<br>';
+    }
 
-<div class="mySlides fade">
-  <div class="numbertext"></div>
-  <img src="slideshow1/genshimimpact.jpeg" style="width:50%">
-  
-</div>
+    $string_exp = "/^[A-Za-z .'-]+$/";
 
-</div>
-<br>
+    if (!preg_match($string_exp, $name)) {
+        $error_message .= 'The Name you entered does not appear to be valid.<br>';
+    }
 
-<div style="text-align:center">
-  <span class="dot"></span> 
-  <span class="dot"></span> 
-  <span class="dot"></span> 
-</div>
+    if (strlen($message) < 2) {
+        $error_message .= 'The Message you entered do not appear to be valid.<br>';
+    }
 
-<script>
-let slideIndex = 0;
-showSlides();
+    if (strlen($error_message) > 0) {
+        problem($error_message);
+    }
 
-function showSlides() {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 5000); // Change image every 5 seconds
+    $email_message = "Form details below.\n\n";
+
+    function clean_string($string)
+    {
+        $bad = array("content-type", "bcc:", "to:", "cc:", "href");
+        return str_replace($bad, "", $string);
+    }
+
+    $email_message .= "Name: " . clean_string($name) . "\n";
+    $email_message .= "Email: " . clean_string($email) . "\n";
+    $email_message .= "Message: " . clean_string($message) . "\n";
+
+    // create email headers
+    $headers = 'From: ' . $email . "\r\n" .
+        'Reply-To: ' . $email . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+    @mail($email_to, $email_subject, $email_message, $headers);
+?>
+
+    <!-- include your success message below -->
+
+    Thank you for contacting us. We will be in touch with you very soon.
+
+<?php
 }
-</script>
-
-
-
-
-<br><br><br>
-
-   
-
-           
-       
-   
-</body>
-</html>
+?>

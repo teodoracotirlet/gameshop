@@ -1,21 +1,23 @@
 body{
     margin: 0;
-    font-family: 'Poppins';font-size: 22px;
+    font-family: 'Poppins';font-size: 16px;
 }
 
 
 
 .navigationbar{
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Poppins';
+  font-size: 19px;
 }
 
 .logo{
-    height: 20px;
+    height: 40px;
     display: block;
 }
 
@@ -37,18 +39,28 @@ body{
     min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgb(56,42,61);
     z-index: 1;
+    font-size: 17px;
 }
 
-.dropdown-content a:hover {background-color: rgb(243, 243, 243);}
+.dropdown-content a:hover {background-color: rgb(249, 214, 255);}
 .dropdownbtn:hover .dropdown-content{display: block;}
-.dropdownbtn:hover .dropdownnav{background-color: rgb(243, 243, 243);}
+.dropdownbtn:hover .dropdownnav{background-color: rgb(197, 79, 207);}
+
+
+
 
 .buttonsnav{
-    background-color: rgb(253, 253, 253);
-    color: #382A3D;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
+  background-color: rgb(253, 253, 253);
+  color: #540a6e;
+  padding: 16px;
+  font-size: 19px;
+  border: none;
+
+}
+
+.buttonsnav:hover{
+  
+  background-color: rgb(249, 214, 255);
 
 }
 
@@ -61,28 +73,31 @@ body{
 
 
 
-/* Second bar */
+
+/* Second bar - all 25 */
+
 .secondbar-content{
   /*float: left;*/
-  width: 25%;
-  padding: 10px;
+  width: 20%;
+  padding: 8px;
   display: inline-block;
 }
 .firstcolumnempty{
-  float: left;
+  display: inline-block;
+  /*float: left;*/
   width: 25%;
   padding: 10px;
 }
 .thirdcolumnempty{
-  float: left;
+  display: inline-block;
   width: 25%;
   padding: 10px;
 }
-.scndbar{
-  float: left;
+/* .scndbar{
+  display: inline-block;
   width: 25%;
   padding: 10px;
-}
+} */
 /*
 .secondbarpage{
     width: 33.33%;
@@ -93,10 +108,10 @@ body{
 }
 */
 
-.search-bar{
-    width: 50%;
+/* .search-bar{
+    width: 20%;
     position: relative;
-    display: flex;
+    display: inline-block;
 }
 
 .searchterm {
@@ -126,7 +141,7 @@ body{
     cursor: pointer;
     font-size: 20px;
     display: inline-block;
-  }
+  } */
 
   .secondbar:after{
     content: "";

@@ -1,0 +1,154 @@
+.body{
+  background: linear-gradient(141deg, #ffffff 0%, #eff6fe 51%, #aed0ff 75%);
+}
+
+
+
+.listofcategories{
+    width: 33.33%;
+    padding: 1px;
+    display: inline-block;
+}
+.mainpart:after{ 
+    content: "";
+    display: inline-block;
+  clear: both;
+}
+
+.button{
+  background-color: #4a0082;
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 16px 10px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: 0.3s;
+ 
+}
+
+.button:hover {
+  background-color: #6205b4;
+  color: white;
+}
+
+
+
+
+
+
+
+  .pill-nav a {
+    display: inline-block;
+    color: rgb(61, 0, 174);
+    text-align: center;
+    padding: 30px;
+    text-decoration: none;
+    font-size: 30px;
+    border-radius: 10px;
+  }
+  
+  .pill-nav a:hover {
+    background-color: #c96cdb;
+    color: black;
+  }
+  
+  .pill-nav a.active {
+    background-color: rgb(131, 30, 255);
+    color: white;
+  }
+
+
+
+/*Contact Form*/
+
+
+.form-container {
+  background: #aed0ff;
+  border: #9dc6ff 1px solid;
+  padding: 20px;
+  border-radius: 2px;
+  max-width: 40%;
+}
+
+.input-row {
+  margin-bottom: 20px;
+}
+
+.input-row label {
+  color: #25022b;
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 2px;
+  padding: 10px;
+  border: #e0dfdf 1px solid;
+  box-sizing: border-box;
+  margin-top: 2px;
+}
+
+.span-field {
+  font: Arial;
+  font-size: small;
+  text-decoration: none;
+}
+
+.btn-submit {
+  padding: 10px 60px;
+  background: #b46ebc;
+  border: #70397c 1px solid;
+  color: #ffffff;
+  font-size: 0.9em;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.errorMessage {
+  background-color: #e66262;
+  border: #AA4502 1px solid;
+  padding: 5px 10px;
+  color: #FFFFFF;
+  border-radius: 3px;
+}
+
+.successMessage {
+  background-color: #9fd2a1;
+  border: #91bf93 1px solid;
+  padding: 5px 10px;
+  color: #3d503d;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.info {
+  font-size: .8em;
+  color: #e66262;
+  letter-spacing: 2px;
+  padding-left: 5px;
+}
+
+
+
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.category-button {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #dd6efb;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.category-button:hover {
+  background-color: #8f25c8;
+}

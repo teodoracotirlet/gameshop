@@ -1,0 +1,211 @@
+body {
+  
+  font-family: 'Poppins';font-size: 22px;
+  padding: 30px;
+ 
+}
+
+.text1{
+  color: #6831ff;
+}
+
+.mainpart {
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the content horizontally */
+  gap: 20px; /* Add space between rows */
+}
+
+.dropdown-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Add space between dropdowns */
+  justify-content: center;
+}
+
+
+
+
+.emptycolumn{
+  width:25%;
+  float:left;
+  height:280px;
+}
+.h2{
+  color:#a900b2;
+}
+
+
+
+.emptycolumn2{
+  width:25%;
+  float:right;
+  height:280px;
+}
+
+  a {
+    text-decoration: none;
+    color: #000000;
+  }
+  
+  a:hover {
+    color: #222222
+  }
+  
+  
+  
+  .dropdown {
+    flex: 0 0 calc(50% - 20px); /* Two dropdowns in a row, considering margin and gap */
+    margin-bottom: 20px; /* Add some spacing between rows */
+    position: relative;
+}
+
+
+
+.dd-button {
+  display: inline-block;
+  border: 1px solid rgb(221, 107, 255);
+  border-radius: 4px;
+  padding: 10px 30px 10px 20px;
+  background-color: #a900b2;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative; /* Ensure that the position is relative */
+}
+
+.dd-button:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+}
+  
+  .dd-button:hover {
+    background-color: #e28bff;
+  }
+  
+  
+  .dd-input {
+    display: none;
+  }
+  
+  .dd-menu {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0;
+    margin: 2px 0 0 0;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
+    background-color: #c200e4;
+    list-style-type: none;
+}
+
+.dd-input + .dd-menu {
+    display: none;
+}
+
+.dd-input:checked + .dd-menu {
+    display: block;
+}
+
+.dd-menu li {
+    padding: 10px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.dd-menu li:hover {
+    background-color: #90008d;
+}
+
+.dd-menu li a {
+    display: block;
+    margin: -10px -20px;
+    padding: 10px 20px;
+}
+
+.dd-menu li.divider{
+    padding: 0;
+    border-bottom: 1px solid #cccccc;
+}
+
+  
+
+/*Contact Form*/
+
+
+.form-container {
+  background: #aed0ff;
+  border: #9dc6ff 1px solid;
+  padding: 20px;
+  border-radius: 2px;
+  max-width: 40%;
+}
+
+.input-row {
+  margin-bottom: 20px;
+}
+
+.input-row label {
+  color: #25022b;
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 2px;
+  padding: 10px;
+  border: #e0dfdf 1px solid;
+  box-sizing: border-box;
+  margin-top: 2px;
+}
+
+.span-field {
+  font: Arial;
+  font-size: small;
+  text-decoration: none;
+}
+
+.btn-submit {
+  padding: 10px 60px;
+  background: #b46ebc;
+  border: #70397c 1px solid;
+  color: #ffffff;
+  font-size: 0.9em;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.errorMessage {
+  background-color: #e66262;
+  border: #AA4502 1px solid;
+  padding: 5px 10px;
+  color: #FFFFFF;
+  border-radius: 3px;
+}
+
+.successMessage {
+  background-color: #9fd2a1;
+  border: #91bf93 1px solid;
+  padding: 5px 10px;
+  color: #3d503d;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.info {
+  font-size: .8em;
+  color: #e66262;
+  letter-spacing: 2px;
+  padding-left: 5px;
+}
