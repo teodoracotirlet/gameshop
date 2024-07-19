@@ -139,16 +139,22 @@
 }
 
 .category-button {
-  display: block;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
   padding: 10px;
   background-color: #dd6efb;
   color: #ffffff;
   text-align: center;
   text-decoration: none;
   border-radius: 5px;
+  margin-bottom: 10px; 
 }
-
 .category-button:hover {
   background-color: #8f25c8;
+}
+.category-button img {
+  width: 100px; 
+  height: auto;
+  margin-bottom: 10px; 
 }

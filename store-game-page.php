@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("connectiondb.php"); // Include the database connection file
+include("connectiondb.php"); 
+$id_game = isset($_SESSION['id_game']) ? $_SESSION['id_game'] : null;
 
-// Retrieve the product details based on id_game
 if (isset($_GET['id_game'])) {
     $id_game = $_GET['id_game'];
     $sql = "SELECT * FROM games WHERE id_game = $id_game";
@@ -42,10 +42,10 @@ if (isset($_GET['id_game'])) {
         justify-content: space-between;
         max-width: 800px;
         margin: auto;
-        background-color: #bdddff; /* Container background color */
+        background-color: #bdddff; 
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(151, 113, 255, 0.51); /* Add box shadow for a subtle lift */
+        box-shadow: 0 4px 8px rgba(151, 113, 255, 0.51); 
     }
 
     .button1 {
@@ -56,11 +56,11 @@ if (isset($_GET['id_game'])) {
         color: white;
         border: none;
         border-radius: 5px;
-        transition: background-color 0.3s ease; /* Smooth transition on hover */
+        transition: background-color 0.3s ease; 
     }
 
     .button1:hover {
-        background-color: #853f96; /* Darker color on hover */
+        background-color: #853f96;
     }
 
     h2,
@@ -72,11 +72,11 @@ if (isset($_GET['id_game'])) {
         max-width: 100%;
         height: auto;
         border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow to image */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     }
 
     .highlight {
-        background-color: #fab784; /* Highlight color for genre type */
+        background-color: #fab784; 
         padding: 5px;
         border-radius: 5px;
         display: inline-block;
@@ -205,7 +205,7 @@ if (isset($_GET['id_game'])) {
     <div class="text-container">
 <h2><?php echo $name_game; ?> Details</h2>
 
-<!-- Add to Cart button -->
+
 <button onclick="addToCart(<?php echo $id_game; ?>, '<?php echo $name_game; ?>', <?php echo $price; ?>)"class="button1">Add to Cart</button>
 
 <p>Genre: <span class="highlight"><?php echo $genre; ?></span></p>
@@ -213,22 +213,34 @@ if (isset($_GET['id_game'])) {
     </div>
 </div>
 <script>
-    function addToCart(id_game, name_game, price) {
-        // Send an AJAX request to the PHP script
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                // Redirect to the cart page after successfully adding to the cart
-                window.location.href = 'paypage.php';
-            }
-        };
+    // function addToCart(id_game, name_game, price) {
+       
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.onreadystatechange = function () {
+    //         if (xhr.readyState == 4 && xhr.status == 200) {
+               
+    //             window.location.href = 'paypage.php';
+    //         }
+    //     };
 
-        // Prepare data and send the request
-        var data = "id_game=" + id_game + "&name_game=" + encodeURIComponent(name_game) + "&price=" + price;
-        xhr.open("POST", "addToCart.php", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send(data);
-    }
+        
+    //     var data = "&id_game=" + id_game + "&name_game=" + encodeURIComponent(name_game) + "&price=" + price;
+    //     xhr.open("POST", "addToCart.php", true);
+    //     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //     xhr.send(data);
+    // }
+    function addToCart(id_game, name_game, price) {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        window.location.href = 'paypage.php';
+                    }
+                };
+                var data = "id_game=" + id_game + "&name_game=" + encodeURIComponent(name_game) + "&price=" + price;
+                xhr.open("POST", "addToCart.php", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(data);
+            }
 </script>
 
   </center>

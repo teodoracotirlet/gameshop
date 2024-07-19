@@ -14,14 +14,14 @@ body {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center the content horizontally */
-  gap: 20px; /* Add space between rows */
+  justify-content: center; 
+  gap: 20px; 
 }
 
 .dropdown-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Add space between dropdowns */
+  gap: 20px; 
   justify-content: center;
 }
 
@@ -57,8 +57,8 @@ body {
   
   
   .dropdown {
-    flex: 0 0 calc(50% - 20px); /* Two dropdowns in a row, considering margin and gap */
-    margin-bottom: 20px; /* Add some spacing between rows */
+    flex: 0 0 calc(50% - 20px); 
+    margin-bottom: 20px;
     position: relative;
 }
 
@@ -72,7 +72,7 @@ body {
   background-color: #a900b2;
   cursor: pointer;
   white-space: nowrap;
-  position: relative; /* Ensure that the position is relative */
+  position: relative;
 }
 
 .dd-button:after {

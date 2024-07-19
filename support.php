@@ -98,14 +98,14 @@
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center the content horizontally */
-  gap: 20px; /* Add space between rows */
+  justify-content: center; 
+  gap: 20px; 
 }
 
 .dropdown-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Add space between dropdowns */
+    gap: 20px; 
     justify-content: center;
     margin-top: 20px;
 }
@@ -142,8 +142,8 @@
   
   
   .dropdown {
-    flex: 0 0 calc(50% - 20px); /* Two dropdowns in a row, considering margin and gap */
-    margin-bottom: 20px; /* Add some spacing between rows */
+    flex: 0 0 calc(50% - 20px); 
+    margin-bottom: 20px; 
     position: relative;
 }
 
@@ -157,7 +157,7 @@
     background-color: #a900b2;
     cursor: pointer;
     white-space: nowrap;
-    position: relative; /* Ensure that the position is relative */
+    position: relative; 
 }
 
 .dd-button:after {
@@ -170,7 +170,7 @@
     height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-top: 5px solid white; /* Adjusted border color to match the background */
+    border-top: 5px solid white; 
 }
   
   .dd-button:hover {
@@ -186,14 +186,14 @@
     width: auto;
     position: absolute;
     top: 100%;
-    left: 0; /* Ensure the dropdown menu is aligned to the left */
+    left: 0; 
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 0;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
     background-color: #c200e4;
     list-style-type: none;
-    z-index: 1; /* Ensure the dropdown is above other elements */
+    z-index: 1;
 }
 
 
@@ -225,7 +225,7 @@
 
 .dd-menu li.divider {
     padding: 0;
-    margin: 5px 0; /* Adjusted margin for better spacing */
+    margin: 5px 0; 
     border-bottom: 1px solid #cccccc;
 }
   
@@ -402,7 +402,7 @@
 <center>
 
 <?php
-// Database connection
+
 
 $servername = "localhost";
 $username = "";
@@ -415,14 +415,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle form submission
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
     $subject = $_POST["subject"];
     $message = $_POST["message"];
 
-    // Insert data into the database
+   
     $sql = "INSERT INTO contact (name, email, subject, message) VALUES ('$name', '$email', '$subject', '$message')";
 
     if ($conn->query($sql) === TRUE) {

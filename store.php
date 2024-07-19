@@ -13,26 +13,26 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicon -->
+   
     <link href="img/favicon.ico" rel="icon">
 
-    <!-- Google Web Fonts -->
+    
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"> -->
 
-    <!-- Icon Font Stylesheet -->
+    
      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
+    
     <link href="lib/animate/animate.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
+   
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Template Stylesheet -->
+   
     <link href="css/style.css" rel="stylesheet">
 
 
@@ -40,6 +40,84 @@
 
     
 <style>
+
+
+/* Slideshow */
+.slideshow {
+        position: relative;
+        width: 100%;
+        height: 500px; /* Ajustează în funcție de necesități */
+        overflow: hidden;
+        margin: auto;
+        border-radius: 15px;
+    }
+
+    .slides {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        height: 100%;
+    }
+
+    .slide {
+        flex: 0 0 100%; /* Fiecare slide să ocupe 100% din lățime */
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .slide img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* Redimensionare imagine pentru a incadra complet */
+        position: relative;
+        z-index: 2; /* Asigură că imaginea produsului este deasupra fundalului */
+    }
+
+    .slide::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        filter: blur(20px); /* Aplică filtru de blur */
+        z-index: 1; /* Asigură că fundalul blurat este în spatele imaginii */
+    }
+
+    
+    .control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.5);
+        color: black;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    .prev {
+        left: 10px;
+    }
+
+    .next {
+        right: 10px;
+    }
+
+
+
+
+
+
+
 
 
 
@@ -95,7 +173,7 @@
   padding: 16px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
 @media screen and (max-height: 450px) {
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
@@ -124,11 +202,11 @@
 
         @media screen and (max-width: 768px) {
     .account-link {
-        margin-right: 0; /* Adjust for smaller screens */
+        margin-right: 0;
     }
 
     .account-link a {
-        padding: 10px; /* Adjust padding for smaller screens */
+        padding: 10px; 
     }
 }
 
@@ -170,50 +248,59 @@
 
 
 
-/* Slideshow */
 
-.slider {
-    width: 90%;
-    height: 510px;
-    position: relative;
-  }
 
-  .slider img {
-    width: 100%;
-    height: 500px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    /* transition: all 0.5s ease-in-out; */
-  }
 
-  .slider img:first-child {
-    z-index: 1;
-  }
 
-  .slider img:nth-child(2) {
-    z-index: 0;
-  }
+  /* Sort */
+/* 
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
 
-  .navigation-button {
-    text-align: center;
-    position: relative;
-  }
 
-  .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-  }
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
 
-  .active,
-  .dot:hover {
-    background-color: #717171;
-  }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+.dropdown:hover .dropbtn {background-color: #2980B9;}
+ */
 
 </style>
 
@@ -409,21 +496,21 @@ if (!isset($conn)) {
 
 $str = mysqli_real_escape_string($conn, $_POST['str']);
 
-// Use a prepared statement to prevent SQL injection
+
 $sql = "SELECT id_game, name_game, genre, price FROM games WHERE name_game LIKE ? OR genre LIKE ?";
 $stmt = mysqli_prepare($conn, $sql);
 
 if ($stmt) {
-    // Set the search term
+   
     $searchTerm = "%$str";
     
-    // Bind parameters
+   
     mysqli_stmt_bind_param($stmt, "ss", $searchTerm, $searchTerm);
     
-    // Execute the statement
+ 
     mysqli_stmt_execute($stmt);
 
-    // Get result
+  
     $res = mysqli_stmt_get_result($stmt);
 
     if (mysqli_num_rows($res) > 0) {
@@ -434,7 +521,7 @@ if ($stmt) {
         echo "No data found";
     }
 
-    // Close statement
+    
     mysqli_stmt_close($stmt);
 } else {
     echo "Error in prepared statement";
@@ -447,7 +534,7 @@ if ($stmt) {
 </div></center>
 
 
-    <br>
+    <br><br><br>
 
 
 
@@ -456,81 +543,78 @@ if ($stmt) {
 
 
 <body>
+
 <!-- Slideshow -->
 
+<!-- Slideshow -->
 
- <center> 
+<center>
+        <div class="slideshow" id="gameCarousel">
+        <div class="slides">
+            <?php
+            include("connectiondb.php");
+            $query = "SELECT id_game, name_game, price, image FROM games";
+            $result = $conn->query($query);
 
-<div class="slider">
-<img src="slideshow1/undertale.jpg" style="width:90%">
-<img src="slideshow1/godofwar.jpeg" style="width:90%">
-<img src="slideshow1/genshimimpact.jpeg" style="width:90%">
-<img src="slideshow1/stardewvalley2.jpg" style="width:90%">
-    
-  </div>
-  <div class="navigation-button">
-    <span class="dot active" onclick="changeSlide(0)"></span>
-    <span class="dot" onclick="changeSlide(1)"></span>
-    <span class="dot" onclick="changeSlide(2)"></span>
-    <span class="dot" onclick="changeSlide(3)"></span>
-  </div>
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo '<div class="slide">';
+                    echo '<a href="store-game-page.php?id_game=' . $row['id_game'] . '">';
+                    echo '<img src="data:image/jpeg;base64,' . base64_encode($row['image']) . '" alt="' . $row['name_game'] . '">';
+                    echo '</a>';
+                    echo '<div class="caption">';
+                    echo '<h3>' . $row['name_game'] . '</h3>';
+                    echo '<p>$' . $row['price'] . '</p>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            }
+            ?>
+        </div>
+        <button class="control prev" onclick="prevSlide()">&#10094;</button>
+        <button class="control next" onclick="nextSlide()">&#10095;</button>
+    </div>
 
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
 
+        function showSlide(index) {
+            if (index < 0) {
+                index = totalSlides - 1;
+            } else if (index >= totalSlides) {
+                index = 0;
+            }
+            const offset = -index * 100;
+            document.querySelector('.slides').style.transform = 'translateX(' + offset + '%)';
+            currentSlide = index;
+        }
 
-<script>
-    var currentImg = 0;
-  var imgs = document.querySelectorAll('.slider img');
-  let dots = document.querySelectorAll('.dot');
-  var interval = 3000;
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
 
-//   // Second banner
-//   var secondEventTitle = 'Hi! *Freshmen* Orientation Day';
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
 
-//   // Third banner
-//   var thirdEventDate = new Date('2023-02-01'); // pull this from database
-//   var thirdEventDateString = thirdEventDate.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' });
-//   var days = calculateDays(new Date(), thirdEventDate) || 0;
-//   const countdownText = days > 0 ? `${days} days left` : 'Live Now!';
-
-//   var secondImageUrl = `https://ondemand.bannerbear.com/simpleurl/01YWAxB7nGYdJrKoXM/title/text/${encodeURIComponent(secondEventTitle)}`;
-//   var thirdImageUrl = `https://ondemand.bannerbear.com/simpleurl/ley9O0B2ZGbB4GjRDY/date/text/${encodeURIComponent(
-//     thirdEventDateString
-//   )}/countdown/text/${encodeURIComponent(countdownText)}`;
-
-  document.getElementById('img-2').src = secondImageUrl;
-  document.getElementById('img-3').src = thirdImageUrl;
-
-  var timer = setInterval(changeSlide, interval);
-
-  function changeSlide(n) {
-    for (var i = 0; i < imgs.length; i++) {
-      imgs[i].style.opacity = 0;
-      dots[i].className = dots[i].className.replace(' active', '');
-    }
-
-    currentImg = (currentImg + 1) % imgs.length;
-
-    if (n != undefined) {
-      clearInterval(timer);
-      timer = setInterval(changeSlide, interval);
-      currentImg = n;
-    }
-
-    imgs[currentImg].style.opacity = 1;
-    dots[currentImg].className += ' active';
-  }
-
-  function calculateDays(today, eventDate) {
-    const difference = eventDate.getTime() - today.getTime();
-
-    return Math.ceil(difference / (1000 * 3600 * 24)); // convert to days
-  }
-</script>
-
-</center>
-
+        setInterval(nextSlide, 3000); // Schimbă slide-ul automat la fiecare 3 secunde
+    </script>
+    </center>
 <br><br><br><br><br><br>
+<!-- 
+<div class="dropdown">
+  <button class="dropbtn">Sortare</button>
+  <div class="dropdown-content">
+    <a href="#" onclick="applyFilters('asc')">Preț - Crescător</a>
+    <a href="#" onclick="applyFilters('desc')">Preț - Descrescător</a>
+    <a href="#" onclick="applyFilters('nameAsc')">Nume - A la Z</a>
+    <a href="#" onclick="applyFilters('nameDesc')">Nume - Z la A</a>
+  </div>
+</div> -->
 
+<br><br><br>
 <?php
 
 include("connectiondb.php");
@@ -565,7 +649,7 @@ if ($result->num_rows > 0) {
         echo '</div>';
         echo '<div class="store-overlay">';
         echo '<a href="store-game-page.php?id_game=' . $id_game . '" class="btn btn-dark rounded-pill py-2 px-4 m-2" style="color:#C436D4">BUY <i class="fa fa-arrow-right ms-2"></i></a>';
-        // Add to Cart button can be included here if needed
+        
         echo '</div>';
         echo '</div>';
         echo '</div>';
@@ -576,7 +660,7 @@ if ($result->num_rows > 0) {
     echo '<p>No products found.</p>';
 }
 
-// Close the database connection
+
 $conn->close();
 ?>
 
@@ -588,7 +672,7 @@ $conn->close();
 <center>
 
 <?php
-// Database connection
+
 
 $servername = "localhost";
 $username = "";
@@ -601,14 +685,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle form submission
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
     $subject = $_POST["subject"];
     $message = $_POST["message"];
 
-    // Insert data into the database
+   
     $sql = "INSERT INTO contact (name, email, subject, message) VALUES ('$name', '$email', '$subject', '$message')";
 
     if ($conn->query($sql) === TRUE) {
@@ -655,5 +739,31 @@ $conn->close();
     <img src= "gifs/grass4.gif" width = "24.25%" >
     <img src= "gifs/grass4.gif" width = "24.25%" >
     <img src= "gifs/grass4.gif" width = "24.25%" >
+
+<!-- 
+<script>
+ function applyFilters(sortOrder) {
+    var priceMin = prompt("Introduceți prețul minim:", "0");
+    var priceMax = prompt("Introduceți prețul maxim:", "100");
+
+    // Trimite datele către server pentru a aplica filtrele și a solicita produsele actualizate
+    fetchProducts(priceMin, priceMax, sortOrder);
+}
+
+function fetchProducts(priceMin, priceMax, sortOrder) {
+    // Trimite o cerere GET către server pentru a obține produsele filtrate și sortate
+    var url = "get_products.php?priceMin=" + priceMin + "&priceMax=" + priceMax + "&sortOrder=" + sortOrder;
+
+    fetch(url)
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("productList").innerHTML = data; // Afișează rezultatele în div-ul "productList"
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+  </script>
+     -->
 </body>
 </html>
+
