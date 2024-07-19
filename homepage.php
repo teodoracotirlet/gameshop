@@ -1,5 +1,11 @@
 
+<?php
+session_start();
+include("connectiondb.php");
 
+$query = "SELECT id_game, name_game, price, image FROM games";
+$result = $conn->query($query);
+?>
 
 <!DOCTYPE html>
 
@@ -19,30 +25,71 @@
 
 
 .navigationbar{
-    max-width: 1300px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    font-family: 'Poppins';
-    
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Poppins';
+  
+}
+.logo{
+    height: 40px;
+    display: block;
 }
 
+.pages{
+    position: right;
+}
+
+
+.dropdownbtn{
+    position: relative;
+    display: inline-block;
+
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgb(56,42,61);
+    z-index: 1;
+    font-size: 17px;
+}
+
+.dropdown-content a:hover {background-color: rgb(249, 214, 255);}
+.dropdownbtn:hover .dropdown-content{display: block;}
+.dropdownbtn:hover .dropdownnav{background-color: rgb(197, 79, 207);}
+
+
+
+
 .buttonsnav{
-    background-color: rgb(253, 253, 253);
-    color: #540a6e;
-    padding: 16px;
-    font-size: 19px;
-    border: none;
+  background-color: rgb(255, 255, 255);
+  color: #540a6e;
+  padding: 20px 10px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
 
 }
 
 .buttonsnav:hover{
-    
-    background-color: rgb(249, 214, 255);
+  
+  background-color: rgb(249, 214, 255);
 
 }
+
+.dropdown-content a {
+    color: #382A3D;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
 
 
 
@@ -104,7 +151,7 @@
   padding: 16px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
 @media screen and (max-height: 450px) {
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
@@ -132,73 +179,80 @@
 
 
 
-
-
-
-.slideshow-wrapper {
-    position: relative;
-    margin: auto;
-    text-align: center;
-    overflow: hidden;
-    padding: 10px; 
-}
-
-#slideshow-container {
-    width: 800px;
-    height: 400px;
-    position: relative;
-    margin: auto;
-    text-align: center;
-    overflow: hidden;
-    align-items: center;
-}
-
-.button-container {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
-
-.arrow {
-    font-size: 36px;
-    cursor: pointer;
-    color: #ff19d5;
-    position: relative;
-    display: inline-block;
-    transition: color 0.3s;
-    margin: 0 10px; 
-}
-
-.arrow::before,
-.arrow::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 90%;
-    top: 0;
-    left: 0;
-    transition: inherit;
-    align-items: center;
-}
-
-.arrow::before {
-    box-shadow: -10px 0 10px rgba(255, 190, 224, 0.8) inset;
-    left: 0;
-}
-
-.arrow::after {
-    box-shadow: 10px 0 10px rgba(255, 135, 197, 0.8) inset;
-    right: 0;
-}
-
-.arrow:hover {
-    color: #d611b2;
-}
-
-
+/* Slideshow */
+.carousel {
+            position: relative;
+            width: 75%;
+            height: 80vh;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        .carousel-slide {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-slide.active {
+            display: flex;
+        }
+        .carousel-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(20px);
+            z-index: 1;
+        }
+        .carousel-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+        }
+        .carousel-image {
+            max-height: 90%; 
+            max-width: 50%; 
+            object-fit: contain;
+            cursor: pointer;
+            margin-right: 10px; 
+        }
+        .carousel-caption {
+            text-align: left;
+            color: white; 
+        }
+        .carousel-caption h3 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        .carousel-caption p {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.5); 
+            color: black; 
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 3;
+        }
+        .carousel-control-prev {
+            left: 10px;
+        }
+        .carousel-control-next {
+            right: 10px;
+        }
 
 
 
@@ -228,50 +282,6 @@
 
 
 
-/* Slideshow */
-
-.slider-container {
-    width: 70%;
-    margin: 0 auto;
-    text-align: center; 
-    position: relative;
-    
-  }
-
-  .slider {
-    width: 100%;
-    height: 500px;
-    position: relative;
-  }
-
-  .slider img {
-    width: 60%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .navigation-button {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-  }
-
-  .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #6f57de;
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  .active,
-  .dot:hover {
-    background-color: #2202b3;
-  }
 </style>
 </head>
 
@@ -358,7 +368,7 @@
   <a href="store.php">Store</a>
   <a href="news.php">News</a>
 
-  <br>
+  
 
   <div class="account-link">
         <?php
@@ -446,21 +456,20 @@ if (isset($_POST['submit'])) {
     
     $str = mysqli_real_escape_string($conn, $_POST['str']);
     
-    // Use a prepared statement to prevent SQL injection
+    
     $sql = "SELECT id_game, name_game, genre, price FROM games WHERE name_game LIKE ? OR genre LIKE ?";
     $stmt = mysqli_prepare($conn, $sql);
 
     if ($stmt) {
-        // Set the search term
+        
         $searchTerm = "%$str";
         
-        // Bind parameters
+     
         mysqli_stmt_bind_param($stmt, "ss", $searchTerm, $searchTerm);
         
-        // Execute the statement
+       
         mysqli_stmt_execute($stmt);
 
-        // Get result
         $res = mysqli_stmt_get_result($stmt);
 
         if (mysqli_num_rows($res) > 0) {
@@ -471,7 +480,6 @@ if (isset($_POST['submit'])) {
             echo "No data found";
         }
 
-        // Close statement
         mysqli_stmt_close($stmt);
     } else {
         echo "Error in prepared statement";
@@ -489,7 +497,7 @@ if (isset($_POST['submit'])) {
 
 
     </header>
-    <br><br><br>
+    <br><br>
 
 
 
@@ -499,126 +507,81 @@ if (isset($_POST['submit'])) {
 
 
 
-<body>
+
 <!-- Slideshow -->
 
 <center>
 
-<div class="slider-container">
-    <div class="slider">
-        <img src="slideshow1/undertale.jpg" style="width:90%">
-        <img src="slideshow1/godofwar.jpeg" style="width:90%">
-        <img src="slideshow1/genshimimpact.jpeg" style="width:90%">
-        <img src="slideshow1/stardewvalley2.jpg" style="width:90%">
-        
-    </div>
-    <div class="navigation-button">
-        <span class="dot active" onclick="changeSlide(0)"></span>
-        <span class="dot" onclick="changeSlide(1)"></span>
-        <span class="dot" onclick="changeSlide(2)"></span>
-        <span class="dot" onclick="changeSlide(3)"></span>
-    </div>
-</div>
 
-
-
-<script>
-var currentImg = 0;
-    var imgs = document.querySelectorAll('.slider img');
-    let dots = document.querySelectorAll('.dot');
-    var interval = 3000;
-    var timer = setInterval(changeSlide, interval);
-
-    function changeSlide(n) {
-        for (var i = 0; i < imgs.length; i++) {
-            imgs[i].style.opacity = 0;
-            dots[i].classList.remove('active');
-        }
-
-        currentImg = (n !== undefined) ? n : (currentImg + 1) % imgs.length;
-
-        imgs[currentImg].style.opacity = 1;
-        dots[currentImg].classList.add('active');
-    }
-
-</script>
-
-</center>
-
-
-
-<!--Slideshow-->
-<!-- <div class="slideshow-wrapper">
-<div id="slideshow-container">
+<div class="carousel" id="gameCarousel">
     <?php
-    include("connectiondb.php"); 
-    $sql = "SELECT * FROM games LIMIT 4";
-    $result = $conn->query($sql);
+    include("connectiondb.php");
+    $query = "SELECT id_game, name_game, price, image FROM games";
+    $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
-        $games = $result->fetch_all(MYSQLI_ASSOC);
-
-        foreach ($games as $index => $game) {
-            echo '<div class="slide" id="slide' . $index . '">';
-            echo '<a href="store-game-page.php?id_game=' . $game['id_game'] . '"><img class="slideshow-img" src="data:image/jpeg;base64,' . base64_encode($game['image']) . '" alt="' . $game['name_game'] . '"></a>';
+        $first = true;
+        while($row = $result->fetch_assoc()) {
+            $imageData = base64_encode($row['image']);
+            $activeClass = $first ? 'active' : '';
+            $first = false;
+            echo '<div class="carousel-slide ' . $activeClass . '">';
+            echo '<div class="carousel-background" style="background-image: url(\'data:image/jpeg;base64,' . $imageData . '\');"></div>';
+            echo '<div class="carousel-content">';
+            echo '<a href="store-game-page.php?id_game=' . $row['id_game'] . '">';
+            echo '<img src="data:image/jpeg;base64,' . $imageData . '" alt="' . $row['name_game'] . ' Image" class="carousel-image">';
+            echo '</a>';
+            echo '<div class="carousel-caption">';
+            echo '<h3>' . $row['name_game'] . '</h3>';
+            echo '<p>$' . $row['price'] . '</p>';
+            echo '</div>';
+            echo '</div>';
             echo '</div>';
         }
     }
     ?>
+    <button class="carousel-control carousel-control-prev" onclick="prevSlide()">&#10094;</button>
+    <button class="carousel-control carousel-control-next" onclick="nextSlide()">&#10095;</button>
 </div>
 
-<div class="button-container">
-    <span class="arrow" onclick="previousSlide()">&#9664;</span>
-    <span class="arrow" onclick="nextSlide()">&#9654;</span>
-</div>
-</div>
 <script>
-    var currentSlideIndex = 0;
-    var slides = document.getElementsByClassName("slide");
-
-    showSlide(currentSlideIndex);
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
 
     function showSlide(index) {
-        if (index < 0) {
-            currentSlideIndex = slides.length - 1;
-        } else if (index >= slides.length) {
-            currentSlideIndex = 0;
-        } else {
-            currentSlideIndex = index;
-        }
-
-        for (var i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-
-        slides[currentSlideIndex].style.display = "block";
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+        });
+        slides[index].classList.add('active');
     }
 
     function nextSlide() {
-        showSlide(currentSlideIndex + 1);
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
     }
 
-    function previousSlide() {
-        showSlide(currentSlideIndex - 1);
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlide);
     }
 
     setInterval(nextSlide, 3000); 
-</script> -->
+</script>
 
-
-
-       </center>  
+</center>
+     
    
 
   
-<br><br><br> 
+<br><br><br> <br>
 
 
 
 
 
 <center>
- <img src= "gifs/descent.gif" width = "30%" ></center>
+ <img src= "gifs/descent.gif" width = "10%" ></center>
 
 
         
@@ -632,7 +595,7 @@ var currentImg = 0;
 <center>
 
 <?php
-// Database connection
+
 
 $servername = "localhost";
 $username = "";
@@ -645,14 +608,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle form submission
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
     $subject = $_POST["subject"];
     $message = $_POST["message"];
 
-    // Insert data into the database
+   
     $sql = "INSERT INTO contact (name, email, subject, message) VALUES ('$name', '$email', '$subject', '$message')";
 
     if ($conn->query($sql) === TRUE) {

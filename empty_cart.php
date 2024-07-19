@@ -1,21 +1,33 @@
+
 <?php
-// Add your database connection code if not already included
+session_start();
 include('connectiondb.php');
 
-// Check if the form is submitted to empty the cart
-if (isset($_POST['empty_cart'])) {
-    // Assuming you have a table named 'cart' to store cart items
-    $sql = "DELETE FROM cart";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['empty_cart'])) {
     
-    if (mysqli_query($conn, $sql)) {
+    if (isset($_SESSION['cart'])) {
+        
+        foreach ($_SESSION['cart'] as $item) {
+            $gameId = $item['id_game'];
+            $sql = "DELETE FROM cart WHERE id_game = $gameId";
+
+            if (!mysqli_query($conn, $sql)) {
+                echo "Error deleting item from cart: " . mysqli_error($conn);
+            }
+        }
+
+      
+        unset($_SESSION['cart']);
         echo "Cart emptied successfully.";
     } else {
-        echo "Error emptying cart: " . mysqli_error($conn);
+        echo "The cart is already empty.";
     }
+} else {
+    echo "Invalid request";
 }
 
-// Redirect back to the paypage.php after emptying the cart
 header("Location: paypage.php");
 exit();
 ?>
+
 

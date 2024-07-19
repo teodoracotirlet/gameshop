@@ -18,15 +18,15 @@ Order Details  <?php echo $firstname.$nameErr; ?><br>
 : <?php echo $_POST["last_name"]; ?>
 
 <?php
-//database connection 'orders'
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "gamestore";
 
-// Create connection
+
 $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 

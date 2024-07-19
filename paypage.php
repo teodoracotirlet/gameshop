@@ -1,4 +1,29 @@
+<?php
+session_start();
+include("connectiondb.php"); 
 
+$id_account = isset($_SESSION['id_account']) ? $_SESSION['id_account'] : null;
+$id_game = isset($_SESSION['id_game']) ? $_SESSION['id_game'] : null;
+
+$cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
+
+$totalAmount = 0;
+if (is_array($cart)) {
+    foreach ($cart as $item) {
+        if (is_array($item) && isset($item['id_game'])) {
+            $gameId = $item['id_game'];
+
+            $gameQuery = "SELECT * FROM games WHERE id_game = $gameId";
+            $gameResult = $conn->query($gameQuery);
+
+            if ($gameResult->num_rows > 0) {
+                $gameData = $gameResult->fetch_assoc();
+                $totalAmount += $gameData['price'];
+            }
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 
@@ -24,7 +49,7 @@
         }
 
         .cart-box {
-            max-width: 400px; /* Adjust the max-width of the cart box */
+            max-width: 400px; 
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
@@ -139,242 +164,117 @@
     
 
      
-   
-    <?php
-session_start();
-include("connectiondb.php"); // Include the database connection file
-
-// ini_set('SMTP', 'smtp.mailtrap.io');
-// ini_set('smtp_port', '2525');
-// ini_set('sendmail_from', 'teodoarcotirlet270@gmail.com');
-
-// ini_set('smtp_user', 'teodoracotirlet');
-// ini_set('smtp_pass', '12345678');
-
-// Retrieve the cart from the session
-$cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
-
-// Calculate the total amount
-$totalAmount = 0;
-
-
-
-
-// $firstName = $lastName = $email = $address = $city = '';
-
-
-// if (isset($_SESSION['id_account'])) {
-//     $userId = $_SESSION['id_account'];
-
-//     $userQuery = "SELECT * FROM accounts WHERE id_account = $userId";
-//     $userResult = $conn->query($userQuery);
-
-//     while ($row = mysqli_fetch_assoc($userResult)) {
-        
-//         echo $row['first_name'] . ", ";
-//         echo $row['last_name'] . ", ";
-//         echo $row['email'] . ", ";
-//         echo $row['address'] . ", ";
-//         echo $row['city'];
-
-
-//         $firstName = $row['first_name'];
-//         $lastName = $row['last_name'];
-//         $email = $row['email'];
-//         $address = $row['address'];
-//         $city = $row['city'];
-//     }
-// }
-
-
-
-// Check if $cart is set and not null before iterating
-if (is_array($cart)) {
-    foreach ($cart as $item) {
-        // Check if $item is an array and if it has the required keys
-        if (is_array($item) && isset($item['id_game']) && isset($item['quantity'])) {
-            // Fetch game details from the database
-            $gameId = $item['id_game'];
-            $quantity = $item['quantity'];
-
-            $gameQuery = "SELECT * FROM games WHERE id_game = $gameId";
-            $gameResult = $conn->query($gameQuery);
-
-            if ($gameResult->num_rows > 0) {
-                $gameData = $gameResult->fetch_assoc();
-                $totalAmount += $gameData['price'] * $quantity;
-            }
-        }
-    }
-}
-
-// Handle the payment and order placement
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect user information
-    $firstName = $_POST['first_name'];
-    $lastName = $_POST['last_name'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
-    $city = $_POST['city'];
-
-    // Collect card-related information
-    $cardholderName = $_POST['cardholder_name'];
-    $creditCardNumber = $_POST['credit_card_number'];
-    $cardExpDate = $_POST['card_exp_date'];
-    $cardCVV = $_POST['card_cvv'];
-
-    // Check if the user has agreed to terms and conditions
-    $agreeToTerms = isset($_POST['agree_to_terms']) ? 1 : 0;
-
-    // Check if $cart is set and not null before encoding
-    $productsData = is_array($cart) ? json_encode($cart) : '';
-
-    // Simulate card payment (You should replace this with a secure payment gateway)
-    $cardPaymentSuccess = true; // Set to true for simulation purposes
-
-    // echo "Card Payment Success: " . ($cardPaymentSuccess ? 'true' : 'false');
-
-
-    if ($cardPaymentSuccess) {
-        // Store the order in the database
-        $sql = "INSERT INTO orders (id_account,id_game,orderdate, total_amount, cardholder_name, credit_card_number, card_exp_date, card_cvv, agree_to_terms) 
-                VALUES (1,1,'01.01.2023', $totalAmount, '$cardholderName', '$creditCardNumber', '$cardExpDate', '$cardCVV', $agreeToTerms)";
-
-                // if ($conn->query($sql) === TRUE) {
-                    
-                //     $to = $email; 
-                //     $subject = "Order Confirmation";
-                //     $message = "Thank you for your purchase! Your order details: ...";
-                //     $headers = "From: teodoracotirlet270@gmail.com";
-        
-                    
-                //     mail($to, $subject, $message, $headers);
-        
-        if ($conn->query($sql) === TRUE) {
-            // Clear the cart after successful order placement
-            unset($_SESSION['cart']);
-            $paymentStatus = 'success';
-        } else {
-            $paymentStatus = 'failed';
-        }
-    } else {
-        $paymentStatus = 'failed';
-    }
-}
-
-?>
-
-
-    <title>Cart - Payment Page</title>
+   <center>
     
-        <center>
+
+
     <div class="cart-box">
-    <h2>Your Shopping Cart</h2>
-
-
-<?php
-
-// echo $_SESSION["id_account"]."~~~";
-if (empty($cart)) {
-    echo "<p>Your cart is empty.</p>";
-} else {
-    // Display the cart contents
-    foreach ($cart as $item) {
-        // Check if $item is an array and if it has the required keys
-        if (is_array($item) && isset($item['id_game'])) {
-            // Fetch game details from the database
-            $gameId = $item['id_game'];
-
-            $gameQuery = "SELECT * FROM games WHERE id_game = $gameId";
-            $gameResult = $conn->query($gameQuery);
-
-            if ($gameResult && $gameResult->num_rows > 0) {
-                $gameData = $gameResult->fetch_assoc();
-                $totalAmount += $gameData['price']; // Add the game price to the total
-
-                echo "<p>{$gameData['name_game']} - Price: {$gameData['price']}</p>";
-            } else {
-                echo "<p>Invalid game</p>";
+        <h2>Your Shopping Cart</h2>
+        <?php
+        if (empty($cart) || !is_array($cart)) {
+            echo "<p>Your cart is empty.</p>";
+        } else {
+            foreach ($cart as $item) {
+                if (is_array($item) && isset($item['id_game'])) {
+                    $gameId = $item['id_game'];
+                    $gameQuery = "SELECT * FROM games WHERE id_game = $gameId";
+                    $gameResult = $conn->query($gameQuery);
+                    if ($gameResult && $gameResult->num_rows > 0) {
+                        $gameData = $gameResult->fetch_assoc();
+                        echo "<p>{$gameData['name_game']} - Price: {$gameData['price']}</p>";
+                    } else {
+                        echo "<p>Invalid game</p>";
+                    }
+                }
             }
+            echo "<p>Total Amount: $totalAmount</p>";
         }
-    }
-
-    // Display the total amount
-    echo "<p>Total Amount: $totalAmount</p>";
-}
-
-
-
-?>
-<form method="post" action="empty_cart.php">
-    <input type="submit" name="empty_cart" value="Empty Cart">
-</form>
-
-</div>  
+        ?>
+        <form method="post" action="empty_cart.php">
+            <input type="submit" name="empty_cart" value="Empty Cart">
+        </form>
+    </div>  
 
     <?php
-    // Display the payment form
-    if (empty($cart)) {
-        echo "<p>Your cart is empty.</p>";
-    } else {
+    if (!empty($cart)) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $firstName = $_POST['first_name'];
+            $lastName = $_POST['last_name'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+            $city = $_POST['city'];
+            $cardholderName = $_POST['cardholder_name'];
+            $creditCardNumber = $_POST['credit_card_number'];
+            $cardExpDate = $_POST['card_exp_date'];
+            $cardCVV = $_POST['card_cvv'];
+            $agreeToTerms = isset($_POST['agree_to_terms']) ? 1 : 0;
+            $productsData = is_array($cart) ? json_encode($cart) : '';
+
+            $cardPaymentSuccess = true;
+
+            if ($cardPaymentSuccess) {
+                $sql = "INSERT INTO orders (id_account, id_game, orderdate, total_amount, cardholder_name, credit_card_number, card_exp_date, card_cvv, agree_to_terms) 
+                        VALUES ('$id_account', '" . $cart[0]['id_game'] . "', NOW(), '$totalAmount', '$cardholderName', '$creditCardNumber', '$cardExpDate', '$cardCVV', $agreeToTerms)";
+                if ($conn->query($sql) === TRUE) {
+                    $id_order = $conn->insert_id;
+                    foreach ($cart as $item) {
+                        $gameId = $item['id_game'];
+                        $name_game = $item['name_game'];
+                        $insertItemQuery = "INSERT INTO order_items (id_order, id_game, name_game) 
+                                            VALUES ('$id_order', '$gameId', '$name_game')";
+                        if (!$conn->query($insertItemQuery)) {
+                            echo "Error: " . $insertItemQuery . "<br>" . $conn->error;
+                        }
+                    }
+                    unset($_SESSION['cart']);
+                    $paymentStatus = 'success';
+                } else {
+                    $paymentStatus = 'failed';
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            } else {
+                $paymentStatus = 'failed';
+            }
+        }
+
         if (empty($paymentStatus)) {
             echo "
-
             <div class='payment-box'>
-            <h2>Payment Information</h2>
-            <form method='post'>
-
-
-           
-
-                <label for='first_name'>First Name:</label>
-                <input type='text' id='first_name' name='first_name' required>
-                <br>
-                <label for='last_name'>Last Name:</label>
-                <input type='text' id='last_name' name='last_name'  required>
-                <br>
-                <label for='email'>Email:</label>
-                <input type='email' id='email' name='email' required>
-                <br>
-                <label for='address'>Address:</label>
-                <input type='text' id='address' name='address'required>
-                <br>
-                <label for='city'>City:</label>
-                <input type='text' id='city' name='city'required>
-                <br>
-
-                <h3>Card Information</h3>
-                <label for='cardholder_name'>Name on Card:</label>
-                <input type='text' id='cardholder_name' name='cardholder_name' required>
-                <br>
-                <label for='credit_card_number'>Credit Card Number:</label>
-                <input type='text' id='credit_card_number' name='credit_card_number' required>
-                <br>
-                <label for='card_exp_date'>Expiration Date:</label>
-                <input type='text' id='card_exp_date' name='card_exp_date' placeholder='MM/YYYY' required>
-                <br>
-                <label for='card_cvv'>CVV:</label>
-                <input type='text' id='card_cvv' name='card_cvv' required>
-                <br>
-                <label>
-                    <input type='checkbox' name='agree_to_terms' required>
-                    I agree with terms and conditions
-                </label>
-                <br>
-                <input type='submit' value='Submit Payment'>
-            </form>
-            </div>
-            ";
+                <h2>Payment Information</h2>
+                <form method='post'>
+                    <input type='hidden' name='id_account' value='$id_account'>
+                    <input type='hidden' name='id_game' value='" . (isset($cart[0]['id_game']) ? $cart[0]['id_game'] : '') . "'>
+                    <label for='first_name'>First Name:</label>
+                    <input type='text' id='first_name' name='first_name' required><br>
+                    <label for='last_name'>Last Name:</label>
+                    <input type='text' id='last_name' name='last_name' required><br>
+                    <label for='email'>Email:</label>
+                    <input type='email' id='email' name='email' required><br>
+                    <label for='address'>Address:</label>
+                    <input type='text' id='address' name='address' required><br>
+                    <label for='city'>City:</label>
+                    <input type='text' id='city' name='city' required><br>
+                    <h3>Card Information</h3>
+                    <label for='cardholder_name'>Name on Card:</label>
+                    <input type='text' id='cardholder_name' name='cardholder_name' required><br>
+                    <label for='credit_card_number'>Credit Card Number:</label>
+                    <input type='text' id='credit_card_number' name='credit_card_number' required><br>
+                    <label for='card_exp_date'>Expiration Date:</label>
+                    <input type='text' id='card_exp_date' name='card_exp_date' placeholder='MM/YYYY' required><br>
+                    <label for='card_cvv'>CVV:</label>
+                    <input type='text' id='card_cvv' name='card_cvv' required><br>
+                    <label>
+                        <input type='checkbox' name='agree_to_terms' required>
+                        I agree with terms and conditions
+                    </label><br>
+                    <input type='submit' value='Submit Payment'>
+                </form>
+            </div>";
         } else {
-            // Display payment status
             echo "<p>Payment Status: $paymentStatus</p>";
         }
     }
-
-
     ?>
-
-
 
 
 
