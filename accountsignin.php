@@ -21,7 +21,7 @@
         }
     }
     if(isset($_SESSION["id_account"])) {
-    header("Location:connectiondb.php");
+    // header("Location:connectiondb.php");
     }
 ?>
 
@@ -129,7 +129,7 @@ input[type=reset]:hover {
   padding: 16px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
 @media screen and (max-height: 450px) {
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
@@ -274,7 +274,7 @@ function closeNav() {
     <br><br>
     
 <div><div></div>
- <center>   <h2 style="color:#991baa;">Enter your informations:</h1>
+ <center>   <h2 style="color:#991baa;">Create your account today and join our community of gamers! </h1>
 
 <form action="accountsignin-redirect.php" method="POST" >
     First Name: <input type="text" name="first_name" required placeholder="Your first name.."><br> 

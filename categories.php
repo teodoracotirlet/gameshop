@@ -9,32 +9,7 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
 <style>
-    
-
-
-    .category-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-content: space-between;
-}
-
-.category-button {
-  display: block;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #dd6efb;
-  color: #ffffff;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 5px;
-  height: 40px;
   
-}
-
-.category-button:hover {
-  background-color: #8f25c8;
-}
 
 
 
@@ -113,7 +88,6 @@
   padding: 16px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
@@ -189,6 +163,34 @@
   padding-left: 5px;
 }
 
+
+.category-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  padding: 10px;
+  background-color: #dd6efb;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-bottom: 20px; 
+}
+
+.category-button:hover {
+  background-color: #8f25c8;
+}
+.category-button img {
+  width: 100px; 
+  height: auto;
+  margin-bottom: 10px; 
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 
   </style>
 </head>
@@ -339,29 +341,29 @@ function closeNav() {
         <br>
         
 
-<center>
 
 
+<!--Categories-->
 <?php
-// Include your database connection file
 include("connectiondb.php");
 
-// Fetch categories from the database
 $sql = "SELECT * FROM categories";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // Output categories as buttons in rows of three
     echo '<div class="category-buttons">';
     $count = 0;
     while ($row = $result->fetch_assoc()) {
         $category_id = $row['id_genre'];
         $category_name = $row['name_genre'];
-
-        // Output category as a button
-        echo "<a href='category_page.php?category_id=$category_id' class='category-button'>$category_name</a>";
-
-        // Start a new row after every three buttons
+        $category_image = $row['category_image'];
+        // echo "<a href='category_page.php?category_id=$category_id' class='category-button'>$category_name</a>";
+        echo "<div class='category-button'>
+        <a href='category_page.php?category_id=$category_id'>
+        <img src='data:image/jpeg;base64," . base64_encode($category_image) . "' alt='$category_name' class='category-image'>
+            <span>$category_name</span>
+        </a>
+      </div>";
         $count++;
         if ($count % 3 === 0) {
             echo '</div><div class="category-buttons">';
@@ -372,26 +374,10 @@ if ($result->num_rows > 0) {
     echo 'No categories found in the database.';
 }
 
-// Close the database connection
 $conn->close();
 ?>
 
 
-
-
-    <!-- <div class="pill-nav">
-    <a href="category_page.php?id_genre=1">Action</a>
-    <a href="category_page.php?category_id=2">Adventure</a>
-    <a href="category_page.php?category_id=3">Role-Playing</a>
-    </div> 
-
-<br><br>
-    <div class="pill-nav">
-    <a href="category_page.php?category_id=4">Survival</a>
-    <a href="category_page.php?category_id=5">Strategy</a>
-    <a href="category_page.php?category_id=6">Sports</a>
-</div>  -->
-</center>
 
 
 
@@ -403,7 +389,6 @@ $conn->close();
 <center>
 
 <?php
-// Database connection
 
 $servername = "localhost";
 $username = "";
@@ -416,14 +401,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
     $subject = $_POST["subject"];
     $message = $_POST["message"];
 
-    // Insert data into the database
     $sql = "INSERT INTO contact (name, email, subject, message) VALUES ('$name', '$email', '$subject', '$message')";
 
     if ($conn->query($sql) === TRUE) {

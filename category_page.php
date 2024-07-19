@@ -85,7 +85,6 @@
     padding: 16px;
   }
   
-  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
   @media screen and (max-height: 450px) {
     .sidebar {padding-top: 15px;}
     .sidebar a {font-size: 18px;}
@@ -167,14 +166,14 @@
   .product-container {
             width: 50%;
             margin: 10px auto;
-            background-color: #e5d9ff; /* Change the background color as needed */
+            background-color: #e5d9ff; 
             padding: 20px;
             box-sizing: border-box;
-            overflow: hidden; /* Clear floats */
+            overflow: hidden; 
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(212, 192, 252, 0.6);
             display: flex;
-            justify-content: space-between; /* Distribute content evenly */
+            justify-content: space-between;
             align-items: center;
         }
 
@@ -188,11 +187,11 @@
         .text-container {
             width: 40%;
             box-sizing: border-box;
-            text-align: center; /* Center text horizontally */
+            text-align: center; 
             margin-left: auto;
         }
 
-        /* Clear floats within the product container */
+        
         .product-container::after {
             content: "";
             clear: both;
@@ -342,10 +341,8 @@ function closeNav() {
 
     <center>
 <?php
-// Include your database connection file
 include("connectiondb.php");
 
-// Check if category_id is provided in the URL
 if (isset($_GET['category_id'])) {
     $category_id = $_GET['category_id'];
 
@@ -357,20 +354,17 @@ if (isset($_GET['category_id'])) {
         $genre_row = $genre_result->fetch_assoc();
         $genre = $genre_row['name_genre'];
 
-        // Output the genre name as the title
         echo '<h2>' . $genre . '</h2>';
 
 
       
 
-    // Fetch games for the selected category
     $sql = "SELECT * FROM games WHERE id_genre = $category_id";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        // Output games for the selected category
         while ($row = $result->fetch_assoc()) {
-            $game_id = $row['id_game'];
+            $id_game = $row['id_game'];
             $game_name = $row['name_game'];
             $game_image = $row['image'];
            
@@ -378,7 +372,6 @@ if (isset($_GET['category_id'])) {
            
 
 
-// Output the product container with image and text
 echo '<div class="product-container">';
 echo '<div class="image-container">';
 
@@ -387,11 +380,10 @@ echo "<img src='data:image/jpeg;base64," . base64_encode($game_image) . "' alt='
 echo '</div>';
 
 echo '<div class="text-container">';
-echo "<a href='game_page.php?game_id=$game_id'>$game_name</a><br><br>";
-// Additional text or details can be added here
+echo "<a href='store-game-page.php?id_game=$id_game'>$game_name</a><br><br>";
 echo '</div>';
 
-echo '</div>'; // Close product container
+echo '</div>'; 
     
         }
     } else {
@@ -401,7 +393,6 @@ echo '</div>'; // Close product container
     echo 'Invalid category selection.';
 }
 }
-// Close the database connection
 $conn->close();
 ?>
 

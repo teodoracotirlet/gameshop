@@ -6,7 +6,7 @@
         $result = mysqli_query($con,"SELECT * FROM accounts WHERE profile_name='" . $_POST["profile_name"] . "' and password='" . $_POST["password"] . "'");
         $row  = mysqli_fetch_array($result);
         if(is_array($row)) {
-        
+          $_SESSION["id_account"] = $row['id_account'];
         $_SESSION["profile_name"] = $row['profile_name'];
         
         $_SESSION["password"] = $row['password'];
@@ -14,32 +14,24 @@
         
 
 
- // Set user information in $_SESSION["user_info"]
-//  $_SESSION["user_info"] = array(
-//   "first_name" => $row['first_name'],
-//   "last_name" => $row['last_name'],
-//   "email" => $row['email'],
-//   "address" => $row['address'],
-//   "city" => $row['city'],
-//   // Add other relevant user information
-// );
-
-
-//   header("Location: paypage.php");
-//   exit();
-
 
 
         if ($_SESSION["profile_name"] == "admin") {
-          // Redirect to the admin management page
+         
           header("Location: admin/adminpage.php");
-          exit();}
+          exit();
+        } } else {
+          
+          header("Location: paypage.php");
+          exit();
+          
+      }
 
         $message = "You are logged in now!";
         } else {
          $message = "Invalid Username or Password!";
         }
-    }
+    
     if(isset($_SESSION["id_account"])) {
 
       
@@ -153,7 +145,6 @@ input[type=reset]:hover {
   padding: 16px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
@@ -162,11 +153,11 @@ input[type=reset]:hover {
 
 @media screen and (max-width: 768px) {
     .account-link {
-        margin-right: 0; /* Adjust for smaller screens */
+        margin-right: 0; 
     }
 
     .account-link a {
-        padding: 10px; /* Adjust padding for smaller screens */
+        padding: 10px; 
     }
 }
 
