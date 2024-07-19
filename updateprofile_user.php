@@ -1,76 +1,72 @@
 <?php
-// Include your database connection file
 include("connectiondb.php");
 
-// Check if the form is submitted
+$id_account = $first_name = $last_name = $email = "";
+$first_name_err = $last_name_err = $email_err = "";
+
+// Pornim sesiunea
+session_start();
+
+// Verificăm dacă utilizatorul este autentificat
+if (!isset($_SESSION["id_account"])) {
+    header("location: accountlogin.php");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $id_account = $_POST["id_account"];
-    $first_name = $_POST["first_name"];
-    $last_name = $_POST["last_name"];
-    $profile_name = $_POST["profile_name"];
-    $age = $_POST["age"];
-    $email = $_POST["email"];
-    $address = $_POST["address"];
-    $city = $_POST["city"];
-    $state = $_POST["state"];
 
-    // Update user profile in the database
-    $sql = "UPDATE accounts SET
-            first_name = '$first_name',
-            last_name = '$last_name',
-            profile_name = '$profile_name',
-            age = '$age',
-            email = '$email',
-            address = '$address',
-            city = '$city',
-            state = '$state'
-            WHERE id_account = '$id_account'";
-
-    if ($conn->query($sql) === TRUE) {
-        // Redirect to user profile page after successful update
-        header("Location: userprofile.php");
-        exit;
+    // Validare first name
+    if (isset($_POST["first_name"]) && !empty(trim($_POST["first_name"]))) {
+        $first_name = trim($_POST["first_name"]);
     } else {
-        // Handle database error
-        echo "Error updating profile: " . $conn->error;
+        $first_name_err = "Please enter your first name.";
     }
 
-    // Close the database connection
+    // Validare last name
+    if (isset($_POST["last_name"]) && !empty(trim($_POST["last_name"]))) {
+        $last_name = trim($_POST["last_name"]);
+    } else {
+        $last_name_err = "Please enter your last name.";
+    }
+
+    // Validare email
+    if (isset($_POST["email"]) && !empty(trim($_POST["email"]))) {
+        if (!filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)) {
+            $email_err = "Please enter a valid email address.";
+        } else {
+            $email = trim($_POST["email"]);
+        }
+    } else {
+        $email_err = "Please enter your email address.";
+    }
+
+    // Verificăm dacă nu există erori de validare
+    if (empty($first_name_err) && empty($last_name_err) && empty($email_err)) {
+        $sql = "UPDATE accounts SET first_name = ?, last_name = ?, email = ? WHERE id_account = ?";
+
+        if ($stmt = $conn->prepare($sql)) {
+            $stmt->bind_param("sssi", $param_first_name, $param_last_name, $param_email, $param_id_account);
+
+            $param_first_name = $first_name;
+            $param_last_name = $last_name;
+            $param_email = $email;
+            $param_id_account = $_SESSION["id_account"];
+
+            if ($stmt->execute()) {
+                header("location: userprofile.php");
+                exit();
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            $stmt->close();
+        }
+    }
+
     $conn->close();
 }
-
-// Retrieve user profile information for the form
-$id_account = isset($_GET["id_account"]) ? $_GET["id_account"] : null; // You may need to sanitize and validate this input
-
-if (!$id_account) {
-    // Handle the case where id_account is not set
-    echo "Profile not found!";
-    exit;
-}
-
-$sql = "SELECT * FROM accounts WHERE id_account = '$id_account'";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $first_name = $row['first_name'];
-    $last_name = $row['last_name'];
-    $profile_name = $row['profile_name'];
-    $age = $row['age'];
-    $email = $row['email'];
-    $address = $row['address'];
-    $city = $row['city'];
-    $state = $row['state'];
-} else {
-    // Handle profile not found
-    echo "Profile not found!";
-    exit;
-}
-
-// Close the database connection
-$conn->close();
 ?>
+
 
 <!DOCTYPE html>
 
@@ -134,7 +130,6 @@ $conn->close();
   padding: 16px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
@@ -170,7 +165,7 @@ $conn->close();
     margin: auto;
     text-align: center;
     overflow: hidden;
-    padding: 10px; /* Add some padding to create space */
+    padding: 10px; 
 }
 
 #slideshow-container {
@@ -199,7 +194,7 @@ $conn->close();
     position: relative;
     display: inline-block;
     transition: color 0.3s;
-    margin: 0 10px; /* Add margin to create space between arrows and slideshow */
+    margin: 0 10px; 
 }
 
 .arrow::before,
@@ -235,11 +230,11 @@ $conn->close();
 
 @media screen and (max-width: 768px) {
     .account-link {
-        margin-right: 0; /* Adjust for smaller screens */
+        margin-right: 0; 
     }
 
     .account-link a {
-        padding: 10px; /* Adjust padding for smaller screens */
+        padding: 10px; 
     }
 }
 
@@ -458,36 +453,36 @@ function closeNav() {
 
     </header>
 
+
+
+
+
     <center>
+
+
+
     <h2>Update Profile</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-        <input type="hidden" name="id_account" value="<?php echo $id_account; ?>">
-        <label for="first_name">First Name:</label>
-        <input type="text" name="first_name" value="<?php echo $first_name; ?>"><br>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <div>
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" value="<?php echo $first_name; ?>">
+            <span><?php echo $first_name_err; ?></span>
+        </div>
+        <div>
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" value="<?php echo $last_name; ?>">
+            <span><?php echo $last_name_err; ?></span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" name="email" value="<?php echo $email; ?>">
+            <span><?php echo $email_err; ?></span>
+        </div>
+        <div>
+            <input type="submit" value="Update">
+        </div>
+    </form>
 
-        <label for="last_name">Last Name:</label>
-        <input type="text" name="last_name" value="<?php echo $last_name; ?>"><br>
-
-        <label for="profile_name">Profile Name:</label>
-        <input type="text" name="profile_name" value="<?php echo $profile_name; ?>"><br>
-
-        <label for="age">Age:</label>
-        <input type="number" name="age" value="<?php echo $age; ?>"><br>
-
-        <label for="email">Email:</label>
-        <input type="email" name="email" value="<?php echo $email; ?>"><br>
-
-        <label for="address">Address:</label>
-        <input type="text" name="address" value="<?php echo $address; ?>"><br>
-
-        <label for="city">City:</label>
-        <input type="text" name="city" value="<?php echo $city; ?>"><br>
-
-        <label for="state">State:</label>
-        <input type="text" name="state" value="<?php echo $state; ?>"><br>
-
-        <button type="submit">Update Profile</button>
-    </form></center>
 
    
 <img src= "gifs/grass4.gif" width = "24.25%" >

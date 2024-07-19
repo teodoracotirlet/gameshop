@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// Check if the user is not logged in, redirect to the login page
+
 if (!isset($_SESSION["profile_name"])) {
     header("Location: accountlogin.php");
     exit();
 }
 
-// Fetch user data from the database (adjust this based on your database schema)
+
 $con = mysqli_connect('localhost', 'root', '', 'gamestore') or die('Unable To connect');
 $result = mysqli_query($con, "SELECT * FROM accounts WHERE profile_name='" . $_SESSION["profile_name"] . "'");
 $row = mysqli_fetch_array($result);
@@ -80,7 +80,6 @@ $row = mysqli_fetch_array($result);
   padding: 16px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
@@ -116,7 +115,7 @@ $row = mysqli_fetch_array($result);
     margin: auto;
     text-align: center;
     overflow: hidden;
-    padding: 10px; /* Add some padding to create space */
+    padding: 10px; 
 }
 
 #slideshow-container {
@@ -145,7 +144,7 @@ $row = mysqli_fetch_array($result);
     position: relative;
     display: inline-block;
     transition: color 0.3s;
-    margin: 0 10px; /* Add margin to create space between arrows and slideshow */
+    margin: 0 10px; 
 }
 
 .arrow::before,
@@ -181,11 +180,11 @@ $row = mysqli_fetch_array($result);
 
 @media screen and (max-width: 768px) {
     .account-link {
-        margin-right: 0; /* Adjust for smaller screens */
+        margin-right: 0; 
     }
 
     .account-link a {
-        padding: 10px; /* Adjust padding for smaller screens */
+        padding: 10px; 
     }
 }
 
@@ -206,7 +205,7 @@ $row = mysqli_fetch_array($result);
 
 
 .profile-container {
-    background-color: #e0f7fa; /* Light blue background */
+    background-color: #e0f7fa; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -221,7 +220,7 @@ $row = mysqli_fetch_array($result);
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4caf50; /* Green button color */
+    background-color: #4caf50; 
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -232,7 +231,7 @@ $row = mysqli_fetch_array($result);
 
 
 .update-button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049; 
 }
 
 .textprofile{
@@ -412,21 +411,17 @@ if (isset($_POST['submit'])) {
     
     $str = mysqli_real_escape_string($conn, $_POST['str']);
     
-    // Use a prepared statement to prevent SQL injection
+    
     $sql = "SELECT id_game, name_game, genre, price FROM games WHERE name_game LIKE ? OR genre LIKE ?";
     $stmt = mysqli_prepare($conn, $sql);
 
     if ($stmt) {
-        // Set the search term
         $searchTerm = "%$str";
         
-        // Bind parameters
         mysqli_stmt_bind_param($stmt, "ss", $searchTerm, $searchTerm);
         
-        // Execute the statement
         mysqli_stmt_execute($stmt);
 
-        // Get result
         $res = mysqli_stmt_get_result($stmt);
 
         if (mysqli_num_rows($res) > 0) {
@@ -437,7 +432,6 @@ if (isset($_POST['submit'])) {
             echo "No data found";
         }
 
-        // Close statement
         mysqli_stmt_close($stmt);
     } else {
         echo "Error in prepared statement";
@@ -477,7 +471,6 @@ if (isset($_POST['submit'])) {
 
     <h2>Welcome, <?php echo $_SESSION["profile_name"]; ?></h2>
 
-    <!-- Display other user information from the database -->
     <p class = "textprofile"><strong>Email:</strong> <?php echo $row['email']; ?></p>
     <p class = "textprofile"><strong>First Name:</strong> <?php echo $row['first_name']; ?></p>
     <p class = "textprofile"><strong>Last Name:</strong> <?php echo $row['last_name']; ?></p>
